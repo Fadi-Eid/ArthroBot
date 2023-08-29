@@ -4,6 +4,9 @@
 ArthroBot is a small general purpose 5 DOF desktop robotic arm. It is powered by ROS2 and MoveIt.
 ArthroBot takes advantage of the latest advancements in the field of robotics and robotics manipulators to compute its kinematics, generate a collision-free path and ensure precise control of the end effector (gripper).
 
+![image](https://github.com/Fadi-Eid/ArthroBot/assets/113466842/cece70cd-616e-4284-b222-fd2458484266)
+
+
 ## Objective
 ArthroBot is a prototype for a small, vesatile and general purpose programmable robotic arm that can be used in all areas and field such as:
 * Educational: Universities and schools can use ArthroBot in the labs for practical robotics courses where kinematics and motion control algorithms and logic can be tested and developped.
