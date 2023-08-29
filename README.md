@@ -1,26 +1,28 @@
 # ArthroBot - 5DOF Desktop Robotic Arm
 
-## Description
-ArthroBot is a small general purpose 5 DOF desktop robotic arm. It is powered by ROS2 and MoveIt.
-ArthroBot takes advantage of the latest advancements in the field of robotics and robotics manipulators to compute its kinematics, generate a collision-free path and ensure precise control of the end effector (gripper).
+## Overview
+Welcome to ArthroBot, an innovative 5-degree-of-freedom (5-DOF) desktop robotic arm powered by ROS2 and MoveIt. ArthroBot leverages cutting-edge advancements in robotics and manipulator technology to seamlessly compute kinematics, generate collision-free paths, and deliver precise control over its end effector (which can be customized for various applications).
 
 ![image](https://github.com/Fadi-Eid/ArthroBot/assets/113466842/cece70cd-616e-4284-b222-fd2458484266)
 
 
-## Objective
-ArthroBot is a prototype for a small, vesatile and general purpose programmable robotic arm that can be used in all areas and field such as:
-* Educational: Universities and schools can use ArthroBot in the labs for practical robotics courses where kinematics and motion control algorithms and logic can be tested and developped.
-* Personal: Individuals can make use of ArthroBot in office or at home to complete repetitive pre-programmed tasks or intelligent tasks when combined with computer vision and sensor fusion.
-* Industrial: Industries such as photography, cinematography, security, defense, food and others can make use of ArthroBot to complete programmed or intelligent tasks such as anti-theft, video recording, tracking and surveillance, combat aid...
+## Mission
+ArthroBot sets out to revolutionize the world of robotics with its compact, versatile, and programmable design. This robotic arm finds utility across a spectrum of domains:
+* Educational: ArthroBot provides a valuable tool for educational institutions, enabling students at universities and schools to gain practical experience in robotics courses. It serves as a hands-on platform for experimenting with and developing kinematics, motion control algorithms, and logic.
+* Personal: For individual users, ArthroBot becomes a reliable assistant, whether at home or in the office. It excels in completing repetitive pre-programmed tasks or more complex operations when combined with computer vision and sensor fusion technologies.
+* Industrial: In industrial settings, ArthroBot shines in diverse applications including photography, cinematography, security, defense, and food processing. It performs a wide range of programmed or intelligent tasks such as anti-theft surveillance, video recording, tracking, and surveillance, as well as combat support operations.
 
-### Technical information
-### Software
-ArthroBot uses ROS2 Humble combined with MoveIt2 and other software packages to make the kinematics and motion computations and for teleoperation and simulation.
-ArthroBot also includes in its software package a digital twin that can be used to simulate the robotic arm for testing without the use of the physical robot and hardware, thus speeding up development and testing.
+### Technical Specification
+### Software Stack
+ArthroBot relies on a robust software stack comprising ROS2 Humble and MoveIt2, along with other complementary software packages. This integrated software ecosystem enables seamless kinematic and motion computations, teleoperation, and simulation. Notably, ArthroBot includes a digital twin within its software suite, allowing developers to simulate the robotic arm for testing and refinement without the need for the physical hardware, thereby expediting development and testing phases.
 
-### Hardware
-ArthrBot makes use of an arduino UNO R3 for control. This decision was made because of the popularity and availability of the microcontroller as well as the simplicity of its programming which makes integration easier and development of the control much faster.
-The microcontroller control 5 servo motors for the arm and the end effecor which is pen like and may be later substituted with any gripper.
+### Hardware Components
+ArthroBot is driven by an Arduino UNO R3 microcontroller for precise control. The selection of this microcontroller is based on its widespread popularity and accessibility, coupled with the simplicity of its programming, which streamlines integration and accelerates control system development. The microcontroller orchestrates the motion of five servo motors, controlling both the arm and the end effector. The end effector itself, resembling a pen, offers adaptability for different gripper configurations to suit various application needs.
+
+Explore ArthroBot and unlock a world of possibilities in robotics, automation, and beyond. Join us in the journey of innovation, exploration, and creation.
+
+
+
 
 ### versions
 - V1: Prototype version
