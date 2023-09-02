@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<robot name = "arthrobot">
+
+<!-- This is the first link: empty link specifying the world -->
+<link name="world"></link>
+
+<!--This is the joint that links the robot's base to the world frame -->
+<joint name="world_base_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="world"/>
+    <child link="base_link"/>
+</joint>
+    
+<!-- The base link (wooden frame and the metalic support)-->
+<link name="base_link">
+    <visual>
+        <origin xyz="0.0 0.0 0.0225" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.19 0.16 0.045"/>
+        </geometry>
+        <material name="wood">
+            <color rgba="0.64 0.454 0.286 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.00225" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.19 0.16 0.045"/>
+        </geometry>
+    </collision>
+
+     <visual>
+        <origin xyz="-0.007 0.0085 0.063" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.07 0.06 0.036"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.0001 0.0001 0.0001 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="-0.007 0.0085 0.063" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.07 0.06 0.036"/>
+        </geometry>
+    </collision>
+</link>
+
+<!-- Joint that attaches the base with motor 1-->
+<joint name="base_motor1_joint" type="fixed">
+    <origin xyz="-0.007 0.0085 0.081" rpy="0.0 0.0 0.0"/>
+    <parent link="base_link"/>
+    <child link="motor1_link"/>
+</joint>
+
+<!--Motor 1 link-->
+<link name="motor1_link">
+    <visual>
+        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.04 0.022 0.01"/>
+        </geometry>
+        <material name="red">
+            <color rgba="1.0 0.0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.04 0.022 0.01"/>
+        </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="-0.01 0.0 0.014" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.006" length="0.008"/>
+        </geometry>
+        <material name="white">
+            <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="-0.01 0.0 0.004" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.006" length="0.008"/>
+        </geometry>
+    </collision>
+</link>
+
+<!--Joint between motor 1 and motor 2-->
+<joint name="motor1_motor2_joint" type="revolute">
+    <origin xyz="-0.01 0.0 0.018" rpy="0.0 0.0 0.0"/>
+    <parent link="motor1_link"/>
+    <child link="motor2_link"/>
+    <axis xyz="0.0 0.0 1.0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+</joint>
+
+<!--Motor 2 link-->
+<link name="motor2_link">
+    <visual>
+        <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.057 0.06 0.025"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.0 0.0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.057 0.06 0.025"/>
+        </geometry>
+    </collision>
+</link>
+
+<!--Joint between motor 2 and bar 1-->
+<joint name="motor2_bar1_joint" type="revolute">
+    <origin xyz="-0.0285 0.02 0.0125" rpy="0.0 0.0 0.0"/>
+    <parent link="motor2_link"/>
+    <child link="bar1_link"/>
+    <axis xyz="-1.0 0.0 0.0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+</joint>
+
+<!--bar 1 link-->
+<link name="bar1_link">
+    <visual>
+        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.105"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.09 0.09 0.09 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.105"/>
+        </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.058 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.105"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.09 0.09 0.09 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.105"/>
+        </geometry>
+    </collision>
+</link>
+
+<!--joint between bar 1 and bar 2-->
+<joint name="bar1_bar2_joint" type="revolute">
+    <origin xyz="-0.002 0.0 0.105" rpy="0.0 0.0 0.0"/>
+    <parent link="bar1_link"/>
+    <child link="bar2_link"/>
+    <axis xyz="-1.0 0.0 0.0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+</joint>
+
+<!--bar 2 link-->
+<link name="bar2_link">
+    <visual>
+        <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.098"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.09 0.09 0.09 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.098"/>
+        </geometry>
+    </collision>
+
+    <visual>
+        <origin xyz="0.062 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.098"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.09 0.09 0.09 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.062 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.002 0.025 0.098"/>
+        </geometry>
+    </collision>
+</link>
+
+<!--joint bar 2 motor 3-->
+<joint name="bar2_motor3_joint" type="revolute">
+    <origin xyz="0.002 0.0 0.098" rpy="0.0 0.0 0.0"/>
+    <parent link="bar2_link"/>
+    <child link="motor3_link"/>
+    <axis xyz="-1.0 0.0 0.0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+</joint>
+
+<!--motor 3 link-->
+<link name="motor3_link">
+    <visual>
+        <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.056 0.06 0.025"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.0 0.0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.056 0.06 0.025"/>
+        </geometry>
+    </collision>
+</link>
+
+<!--motor 3 motor 4 joint-->
+<joint name="motor3_motor4_joint" type="fixed">
+    <origin xyz="0.0285 0.02 0.0125" rpy="0.0 0.0 0.0"/>
+    <parent link="motor3_link"/>
+    <child link="motor4_link"/>
+</joint>
+
+<!-- motor 4 link-->
+<link name="motor4_link">
+    <visual>
+        <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.042 0.022 0.046"/>
+        </geometry>
+        <material name="black">
+            <color rgba="0.0 0.0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <box size="0.042 0.022 0.046"/>
+        </geometry>
+    </collision>
+</link>
+
+<!--Joint motor 4 ee link-->
+<joint name="motor4_ee_joint" type="revolute">
+    <origin xyz="-0.01 0.0 0.046" rpy="0.0 0.0 0.0"/>
+    <parent link="motor4_link"/>
+    <child link="ee_link"/>
+    <axis xyz="0.0 0.0 1.0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+</joint>
+
+
+<!-- ee link (end effector)-->
+<link name="ee_link">
+    <visual>
+        <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.012" length="0.145"/>
+        </geometry>
+        <material name="black">
+            <color rgba="1.0 0.0 0.0 1.0"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.012" length="0.145"/>
+        </geometry>
+    </collision>
+</link>
+
+</robot>
+
+
