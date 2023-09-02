@@ -27,4 +27,5 @@ Explore ArthroBot and unlock a world of possibilities in robotics, automation, a
 ### versions
 - V1: Prototype version
 
-![arthrobot](https://github.com/Fadi-Eid/ArthroBot/assets/113466842/8963e0f0-5329-40b9-9250-b5a21c0a6150)
+![logo](https://github.com/Fadi-Eid/ArthroBot/assets/113466842/da120db0-5cf2-4a70-990a-b90d3bdbaa59)
+
