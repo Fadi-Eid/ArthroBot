@@ -1,5 +1,21 @@
 <?xml version="1.0"?>
-<robot name = "arthrobot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arthrobot">
+    
+    <!-- Useful XACRO Variables (Properties) -->
+    <xacro:property name="PI" value="3.14159265359" />
+    <xacro:property name="effort" value="30.0" />
+    <xacro:property name="velocity" value="10.0" />
+
+    <!-- Useful Macros -->
+    <xacro:macro name="default_inertial" params="mass">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${mass}" />
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                     iyy="1.0" iyz="0.0"
+                     izz="1.0" />
+        </inertial>
+    </xacro:macro>
 
 <!-- This is the first link: empty link specifying the world -->
 <link name="world"></link>
@@ -13,6 +29,7 @@
     
 <!-- The base link (wooden frame and the metalic support)-->
 <link name="base_link">
+    <xacro:default_inertial mass="5.0"/>
     <visual>
         <origin xyz="0.0 0.0 0.0225" rpy="0.0 0.0 0.0"/>
         <geometry>
@@ -55,6 +72,7 @@
 
 <!--Motor 1 link-->
 <link name="motor1_link">
+    <xacro:default_inertial mass="0.1"/>
     <visual>
         <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
         <geometry>
@@ -99,6 +117,7 @@
 
 <!--Motor 2 link-->
 <link name="motor2_link">
+    <xacro:default_inertial mass="0.1"/>
     <visual>
         <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0"/>
         <geometry>
@@ -127,6 +146,7 @@
 
 <!--bar 1 link-->
 <link name="bar1_link">
+    <xacro:default_inertial mass="0.1"/>
     <visual>
         <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
         <geometry>
@@ -171,6 +191,7 @@
 
 <!--bar 2 link-->
 <link name="bar2_link">
+    <xacro:default_inertial mass="0.1"/>
     <visual>
         <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
         <geometry>
@@ -215,6 +236,7 @@
 
 <!--motor 3 link-->
 <link name="motor3_link">
+    <xacro:default_inertial mass="0.1"/>
     <visual>
         <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
         <geometry>
@@ -241,6 +263,7 @@
 
 <!-- motor 4 link-->
 <link name="motor4_link">
+    <xacro:default_inertial mass="0.1"/>
     <visual>
         <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
         <geometry>
@@ -270,6 +293,7 @@
 
 <!-- ee link (end effector)-->
 <link name="ee_link">
+    <xacro:default_inertial mass="0.05"/>
     <visual>
         <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
         <geometry>
