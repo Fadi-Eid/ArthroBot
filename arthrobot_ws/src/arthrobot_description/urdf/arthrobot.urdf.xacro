@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arthrobot">
+
+    <!-- Include Gazebo Parameters -->
+    <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_gazebo.xacro" />
     
     <!-- Useful XACRO Variables (Properties) -->
     <xacro:property name="PI" value="3.14159265359" />
@@ -15,6 +18,16 @@
                      iyy="1.0" iyz="0.0"
                      izz="1.0" />
         </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="default_transmission" params="number">
+        <transmission name="transmission_${number}">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <actuator name="motor_${number}" role="actuator1"/>
+            <joint name="joint_${number}"    role="joint1">
+                <mechanical_reduction>1.0</mechanical_reduction>
+            </joint>
+        </transmission>
     </xacro:macro>
 
 <!-- This is the first link: empty link specifying the world -->
@@ -64,7 +77,7 @@
 </link>
 
 <!-- Joint that attaches the base with motor 1-->
-<joint name="base_motor1_joint" type="fixed">
+<joint name="base_motor_link" type="fixed">
     <origin xyz="-0.007 0.0085 0.081" rpy="0.0 0.0 0.0"/>
     <parent link="base_link"/>
     <child link="motor1_link"/>
@@ -107,7 +120,7 @@
 </link>
 
 <!--Joint between motor 1 and motor 2-->
-<joint name="motor1_motor2_joint" type="revolute">
+<joint name="joint_1" type="revolute">
     <origin xyz="-0.01 0.0 0.018" rpy="0.0 0.0 0.0"/>
     <parent link="motor1_link"/>
     <child link="motor2_link"/>
@@ -136,7 +149,7 @@
 </link>
 
 <!--Joint between motor 2 and bar 1-->
-<joint name="motor2_bar1_joint" type="revolute">
+<joint name="joint_2" type="revolute">
     <origin xyz="-0.0285 0.02 0.0125" rpy="0.0 0.0 0.0"/>
     <parent link="motor2_link"/>
     <child link="bar1_link"/>
@@ -181,7 +194,7 @@
 </link>
 
 <!--joint between bar 1 and bar 2-->
-<joint name="bar1_bar2_joint" type="revolute">
+<joint name="joint_3" type="revolute">
     <origin xyz="-0.002 0.0 0.105" rpy="0.0 0.0 0.0"/>
     <parent link="bar1_link"/>
     <child link="bar2_link"/>
@@ -226,7 +239,7 @@
 </link>
 
 <!--joint bar 2 motor 3-->
-<joint name="bar2_motor3_joint" type="revolute">
+<joint name="joint_4" type="revolute">
     <origin xyz="0.002 0.0 0.098" rpy="0.0 0.0 0.0"/>
     <parent link="bar2_link"/>
     <child link="motor3_link"/>
@@ -282,7 +295,7 @@
 </link>
 
 <!--Joint motor 4 ee link-->
-<joint name="motor4_ee_joint" type="revolute">
+<joint name="joint_5" type="revolute">
     <origin xyz="-0.01 0.0 0.046" rpy="0.0 0.0 0.0"/>
     <parent link="motor4_link"/>
     <child link="ee_link"/>
@@ -310,5 +323,13 @@
         </geometry>
     </collision>
 </link>
+
+
+<!-- Transmissions-->
+<xacro:default_transmission number="1"/>
+<xacro:default_transmission number="2"/>
+<xacro:default_transmission number="3"/>
+<xacro:default_transmission number="4"/>
+<xacro:default_transmission number="5"/>
 
 </robot>
