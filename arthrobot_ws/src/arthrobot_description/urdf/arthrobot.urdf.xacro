@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arthrobot">
 
+    <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_gazebo.xacro"/>
+    <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_ros2_control.xacro"/>
+
     <!-- Useful XACRO Variables (Properties) -->
     <xacro:property name="PI" value="3.14159265359" />
     <xacro:property name="effort" value="30.0" />
@@ -16,6 +19,17 @@
                      izz="1.0" />
         </inertial>
     </xacro:macro>
+
+    <xacro:macro name="default_transmission" params="number">
+        <transmission name="transmission_${number}">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <actuator name="motor_${number}" role="actuator1"/>
+            <joint name="joint_${number}" role="joint1">
+                <mechanical_reduction>1.0</mechanical_reduction>
+            </joint>
+        </transmission>
+    </xacro:macro>
+
 
 <!-- This is the first link: empty link specifying the world -->
 <link name="world"></link>
@@ -274,5 +288,11 @@
         </geometry>
     </collision>
 </link>
+
+<xacro:default_transmission number="1"/>
+<xacro:default_transmission number="2"/>
+<xacro:default_transmission number="3"/>
+<xacro:default_transmission number="4"/>
+<xacro:default_transmission number="5"/>
 
 </robot>
