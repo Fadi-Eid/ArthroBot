@@ -3,16 +3,16 @@
 
     <!-- Useful XACRO Variables (Properties) -->
     <xacro:property name="PI" value="3.14159265359" />
-    <xacro:property name="effort" value="30.0" />
-    <xacro:property name="velocity" value="10.0" />
+    <xacro:property name="effort" value="30.0000000001" />
+    <xacro:property name="velocity" value="10.0000000001" />
 
     <!-- Useful Macros -->
     <xacro:macro name="default_inertial" params="mass">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="${mass}" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0"
-                     iyy="1.0" iyz="0.0"
+            <inertia ixx="1.0" ixy="0.0000000001" ixz="0.0000000001"
+                     iyy="1.0" iyz="0.0000000001"
                      izz="1.0" />
         </inertial>
     </xacro:macro>
@@ -22,35 +22,35 @@
 
 <!--This is the joint that links the robot's base to the world frame -->
 <joint name="world_base_joint" type="fixed">
-    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.000000001 0.000000001 0.0000000001" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="world"/>
     <child link="base_link"/>
 </joint>
     
 <!-- The base link (wooden frame and the metalic support)-->
 <link name="base_link">
-    <xacro:default_inertial mass="5.0"/>
+    <xacro:default_inertial mass="2.0"/>
     <visual>
-        <origin xyz="0.0 0.0 0.0225" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.0225" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.19 0.16 0.045"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.0 0.0 0.00225" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.00225" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.19 0.16 0.045"/>
         </geometry>
     </collision>
 
      <visual>
-        <origin xyz="-0.007 0.0085 0.063" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.007 0.0085 0.063" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.07 0.06 0.036"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="-0.007 0.0085 0.063" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.007 0.0085 0.063" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.07 0.06 0.036"/>
         </geometry>
@@ -59,35 +59,35 @@
 
 <!-- Joint that attaches the base with motor 1-->
 <joint name="base_motor_link" type="fixed">
-    <origin xyz="-0.007 0.0085 0.081" rpy="0.0 0.0 0.0"/>
+    <origin xyz="-0.007 0.0085 0.081" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="base_link"/>
     <child link="motor1_link"/>
 </joint>
 
 <!--Motor 1 link-->
 <link name="motor1_link">
-    <xacro:default_inertial mass="0.1"/>
+    <xacro:default_inertial mass="0.3"/>
     <visual>
-        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.005" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.04 0.022 0.01"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.005" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.04 0.022 0.01"/>
         </geometry>
     </collision>
 
     <visual>
-        <origin xyz="-0.01 0.0 0.014" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.01 0.000000001 0.014" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <cylinder radius="0.006" length="0.008"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="-0.01 0.0 0.004" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.01 0.000000001 0.004" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <cylinder radius="0.006" length="0.008"/>
         </geometry>
@@ -96,24 +96,24 @@
 
 <!--Joint between motor 1 and motor 2-->
 <joint name="joint_1" type="revolute">
-    <origin xyz="-0.01 0.0 0.018" rpy="0.0 0.0 0.0"/>
+    <origin xyz="-0.01 0.000000001 0.018" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="motor1_link"/>
     <child link="motor2_link"/>
-    <axis xyz="0.0 0.0 1.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+    <axis xyz="0.000000001 0.000000001 1.0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
 </joint>
 
 <!--Motor 2 link-->
 <link name="motor2_link">
-    <xacro:default_inertial mass="0.1"/>
+    <xacro:default_inertial mass="0.2"/>
     <visual>
-        <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.01 0.0125" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.057 0.06 0.025"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.01 0.0125" rpy="0.000000001 0.000000001 0.0000000001" />
         <geometry>
             <box size="0.057 0.06 0.025"/>
         </geometry>
@@ -122,37 +122,37 @@
 
 <!--Joint between motor 2 and bar 1-->
 <joint name="joint_2" type="revolute">
-    <origin xyz="-0.0285 0.02 0.0125" rpy="0.0 0.0 0.0"/>
+    <origin xyz="-0.0285 0.02 0.0125" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="motor2_link"/>
     <child link="bar1_link"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+    <axis xyz="-1.0 0.000000001 0.0000000001"/>
+    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
 </joint>
 
 <!--bar 1 link-->
 <link name="bar1_link">
     <xacro:default_inertial mass="0.1"/>
     <visual>
-        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.001 0.000000001 0.0525" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.105"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.001 0.000000001 0.0525" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.105"/>
         </geometry>
     </collision>
 
     <visual>
-        <origin xyz="0.058 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.058 0.000000001 0.0525" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.105"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.001 0.000000001 0.0525" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.105"/>
         </geometry>
@@ -161,37 +161,37 @@
 
 <!--joint between bar 1 and bar 2-->
 <joint name="joint_3" type="revolute">
-    <origin xyz="-0.002 0.0 0.105" rpy="0.0 0.0 0.0"/>
+    <origin xyz="-0.002 0.000000001 0.105" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="bar1_link"/>
     <child link="bar2_link"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+    <axis xyz="-1.0 0.000000001 0.0000000001"/>
+    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
 </joint>
 
 <!--bar 2 link-->
 <link name="bar2_link">
     <xacro:default_inertial mass="0.1"/>
     <visual>
-        <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.001 0.000000001 0.049" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.098"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.001 0.000000001 0.049" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.098"/>
         </geometry>
     </collision>
 
     <visual>
-        <origin xyz="0.062 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.062 0.000000001 0.049" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.098"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.062 0.0 0.049" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.062 0.000000001 0.049" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.002 0.025 0.098"/>
         </geometry>
@@ -200,24 +200,24 @@
 
 <!--joint bar 2 motor 3-->
 <joint name="joint_4" type="revolute">
-    <origin xyz="0.002 0.0 0.098" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.002 0.000000001 0.098" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="bar2_link"/>
     <child link="motor3_link"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+    <axis xyz="-1.0 0.000000001 0.0000000001"/>
+    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
 </joint>
 
 <!--motor 3 link-->
 <link name="motor3_link">
     <xacro:default_inertial mass="0.1"/>
     <visual>
-        <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0285 0.01 0.0000000001" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.056 0.06 0.025"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0285 0.01 0.0000000001" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.056 0.06 0.025"/>
         </geometry>
@@ -226,7 +226,7 @@
 
 <!--motor 3 motor 4 joint-->
 <joint name="motor3_motor4_joint" type="fixed">
-    <origin xyz="0.0285 0.02 0.0125" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.0285 0.02 0.0125" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="motor3_link"/>
     <child link="motor4_link"/>
 </joint>
@@ -235,13 +235,13 @@
 <link name="motor4_link">
     <xacro:default_inertial mass="0.1"/>
     <visual>
-        <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.023" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.042 0.022 0.046"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.023" rpy="0.000000001 0.000000001 0.0000000001"/>
         <geometry>
             <box size="0.042 0.022 0.046"/>
         </geometry>
@@ -250,11 +250,11 @@
 
 <!--Joint motor 4 ee link-->
 <joint name="joint_5" type="revolute">
-    <origin xyz="-0.01 0.0 0.046" rpy="0.0 0.0 0.0"/>
+    <origin xyz="-0.01 0.000000001 0.046" rpy="0.000000001 0.000000001 0.0000000001"/>
     <parent link="motor4_link"/>
     <child link="ee_link"/>
-    <axis xyz="0.0 0.0 1.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="100" velocity="80"/>
+    <axis xyz="0.000000001 0.000000001 1.0"/>
+    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
 </joint>
 
 
@@ -262,13 +262,13 @@
 <link name="ee_link">
     <xacro:default_inertial mass="0.05"/>
     <visual>
-        <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.012" rpy="-1.57 0.000000001 0.0000000001"/>
         <geometry>
             <cylinder radius="0.012" length="0.145"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
+        <origin xyz="0.000000001 0.000000001 0.012" rpy="-1.57 0.000000001 0.0000000001"/>
         <geometry>
             <cylinder radius="0.012" length="0.145"/>
         </geometry>
