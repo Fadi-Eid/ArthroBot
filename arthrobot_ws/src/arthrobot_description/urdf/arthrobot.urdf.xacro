@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arthrobot">
 
-    <!-- Include Gazebo Parameters -->
-    <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_gazebo.xacro" />
-    
     <!-- Useful XACRO Variables (Properties) -->
     <xacro:property name="PI" value="3.14159265359" />
     <xacro:property name="effort" value="30.0" />
@@ -18,16 +15,6 @@
                      iyy="1.0" iyz="0.0"
                      izz="1.0" />
         </inertial>
-    </xacro:macro>
-
-    <xacro:macro name="default_transmission" params="number">
-        <transmission name="transmission_${number}">
-            <plugin>transmission_interface/SimpleTransmission</plugin>
-            <actuator name="motor_${number}" role="actuator1"/>
-            <joint name="joint_${number}"    role="joint1">
-                <mechanical_reduction>1.0</mechanical_reduction>
-            </joint>
-        </transmission>
     </xacro:macro>
 
 <!-- This is the first link: empty link specifying the world -->
@@ -48,9 +35,6 @@
         <geometry>
             <box size="0.19 0.16 0.045"/>
         </geometry>
-        <material name="wood">
-            <color rgba="0.64 0.454 0.286 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="0.0 0.0 0.00225" rpy="0.0 0.0 0.0"/>
@@ -64,9 +48,6 @@
         <geometry>
             <box size="0.07 0.06 0.036"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.0001 0.0001 0.0001 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="-0.007 0.0085 0.063" rpy="0.0 0.0 0.0"/>
@@ -91,9 +72,6 @@
         <geometry>
             <box size="0.04 0.022 0.01"/>
         </geometry>
-        <material name="red">
-            <color rgba="1.0 0.0 0.0 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
@@ -107,9 +85,6 @@
         <geometry>
             <cylinder radius="0.006" length="0.008"/>
         </geometry>
-        <material name="white">
-            <color rgba="1.0 1.0 1.0 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="-0.01 0.0 0.004" rpy="0.0 0.0 0.0"/>
@@ -136,9 +111,6 @@
         <geometry>
             <box size="0.057 0.06 0.025"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.0 0.0 0.0 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0"/>
@@ -165,9 +137,6 @@
         <geometry>
             <box size="0.002 0.025 0.105"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.09 0.09 0.09 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
@@ -181,9 +150,6 @@
         <geometry>
             <box size="0.002 0.025 0.105"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.09 0.09 0.09 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
@@ -210,9 +176,6 @@
         <geometry>
             <box size="0.002 0.025 0.098"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.09 0.09 0.09 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
@@ -226,9 +189,6 @@
         <geometry>
             <box size="0.002 0.025 0.098"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.09 0.09 0.09 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="0.062 0.0 0.049" rpy="0.0 0.0 0.0"/>
@@ -255,9 +215,6 @@
         <geometry>
             <box size="0.056 0.06 0.025"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.0 0.0 0.0 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
@@ -282,9 +239,6 @@
         <geometry>
             <box size="0.042 0.022 0.046"/>
         </geometry>
-        <material name="black">
-            <color rgba="0.0 0.0 0.0 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
@@ -312,9 +266,6 @@
         <geometry>
             <cylinder radius="0.012" length="0.145"/>
         </geometry>
-        <material name="black">
-            <color rgba="1.0 0.0 0.0 1.0"/>
-        </material>
     </visual>
     <collision>
         <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
@@ -323,13 +274,5 @@
         </geometry>
     </collision>
 </link>
-
-
-<!-- Transmissions-->
-<xacro:default_transmission number="1"/>
-<xacro:default_transmission number="2"/>
-<xacro:default_transmission number="3"/>
-<xacro:default_transmission number="4"/>
-<xacro:default_transmission number="5"/>
 
 </robot>
