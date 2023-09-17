@@ -4,7 +4,7 @@
     <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_gazebo.xacro"/>
     <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_ros2_control.xacro"/>
 
-    <!-- Useful XACRO Variables (Properties) -->
+    <!-- Useful Variables -->
     <xacro:property name="PI" value="3.14159265359" />
     <xacro:property name="effort" value="30.0" />
     <xacro:property name="velocity" value="10.0" />
