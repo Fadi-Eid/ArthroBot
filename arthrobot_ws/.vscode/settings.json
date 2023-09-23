@@ -1,0 +1,14 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/fadi/ArthroBot/arthrobot_ws/install/arthrobot_utils/local/lib/python3.10/dist-packages",
+        "/home/fadi/ArthroBot/arthrobot_ws/install/arthrobot_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/fadi/ArthroBot/arthrobot_ws/install/arthrobot_utils/local/lib/python3.10/dist-packages",
+        "/home/fadi/ArthroBot/arthrobot_ws/install/arthrobot_msgs/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

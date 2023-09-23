@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/fadi/ArthroBot/arthrobot_ws/install/arthrobot_msgs/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/fadi/ArthroBot/arthrobot_ws/src/arthrobot_controller/include/**",
+        "/home/fadi/ArthroBot/arthrobot_ws/src/arthrobot_moveit/include/**",
+        "/home/fadi/ArthroBot/arthrobot_ws/src/arthrobot_utils/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
