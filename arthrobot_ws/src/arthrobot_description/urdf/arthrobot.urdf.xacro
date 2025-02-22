@@ -1,15 +1,49 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arthrobot">
 
-    <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_gazebo.xacro"/>
+    <!-- Include ros2_control Plugins -->
     <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_ros2_control.xacro"/>
 
-    <!-- Useful Variables -->
+    <!-- Useful XACRO Variables (Properties) -->
     <xacro:property name="PI" value="3.14159265359" />
-    <xacro:property name="effort" value="30.0" />
-    <xacro:property name="velocity" value="10.0" />
 
-    <!-- Useful Macros -->
+    <!-- Upper limits for joint efforts and velocities -->
+    <xacro:property name="link1_effort"        value="2"/>
+    <xacro:property name="link1_velocity"      value="1.0"/>
+    <xacro:property name="link2_effort"        value="2"/>
+    <xacro:property name="link2_velocity"      value="1.0"/>
+    <xacro:property name="link3_effort"        value="1"/>
+    <xacro:property name="link3_velocity"      value="1.0"/>
+    <xacro:property name="link4_effort"        value="1"/>
+    <xacro:property name="link4_velocity"      value="1.0"/>
+    <xacro:property name="link5_effort"       value="5"/>
+    <xacro:property name="link5_velocity"     value="1"/>
+    
+    <xacro:property name="motor1_upper_limit"  value="${PI}"/>
+    <xacro:property name="motor1_lower_limit"  value="-${PI}"/>
+    <xacro:property name="motor2_upper_limit"  value="${PI}"/>
+    <xacro:property name="motor2_lower_limit"  value="-${PI}"/>
+    <xacro:property name="motor3_upper_limit"  value="${PI}"/>
+    <xacro:property name="motor3_lower_limit"  value="-${PI}"/>
+    <xacro:property name="motor4_upper_limit"  value="${PI}"/>
+    <xacro:property name="motor4_lower_limit"  value="-${PI}"/>
+    <xacro:property name="motor5_upper_limit"  value="${PI}"/>
+    <xacro:property name="motor5_lower_limit"  value="-${PI}"/>
+
+    <!-- Material Colors -->
+    <material name="black">
+        <color rgba="0.17 0.17 0.17 1.0"/>
+    </material>
+    <material name="gray">
+        <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+    <material name="red">
+        <color rgba="0.9 0.05 0.05 1.0"/>
+    </material>
+    <material name="dark_gray">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+
     <xacro:macro name="default_inertial" params="mass">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -20,22 +54,12 @@
         </inertial>
     </xacro:macro>
 
-    <xacro:macro name="default_transmission" params="number">
-        <transmission name="transmission_${number}">
-            <plugin>transmission_interface/SimpleTransmission</plugin>
-            <actuator name="motor_${number}" role="actuator1"/>
-            <joint name="joint_${number}" role="joint1">
-                <mechanical_reduction>1.0</mechanical_reduction>
-            </joint>
-        </transmission>
-    </xacro:macro>
-
 
 <!-- This is the first link: empty link specifying the world -->
 <link name="world"></link>
 
 <!--This is the joint that links the robot's base to the world frame -->
-<joint name="world_base_joint" type="fixed">
+<joint name="virtual_joint" type="fixed">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="world"/>
     <child link="base_link"/>
@@ -114,7 +138,8 @@
     <parent link="motor1_link"/>
     <child link="motor2_link"/>
     <axis xyz="0.0 0.0 1.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
+    <limit lower="${motor1_lower_limit}" upper="${motor1_upper_limit}" 
+              effort="${link1_effort}" velocity="${link1_velocity}"/>
 </joint>
 
 <!--Motor 2 link-->
@@ -140,7 +165,8 @@
     <parent link="motor2_link"/>
     <child link="bar1_link"/>
     <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
+    <limit lower="${motor2_lower_limit}" upper="${motor2_upper_limit}" 
+              effort="${link2_effort}" velocity="${link2_velocity}"/>
 </joint>
 
 <!--bar 1 link-->
@@ -179,7 +205,8 @@
     <parent link="bar1_link"/>
     <child link="bar2_link"/>
     <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
+    <limit lower="${motor3_lower_limit}" upper="${motor3_upper_limit}" 
+              effort="${link3_effort}" velocity="${link3_velocity}"/>
 </joint>
 
 <!--bar 2 link-->
@@ -218,7 +245,8 @@
     <parent link="bar2_link"/>
     <child link="motor3_link"/>
     <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
+    <limit lower="${motor4_lower_limit}" upper="${motor4_upper_limit}" 
+              effort="${link4_effort}" velocity="${link4_velocity}"/>
 </joint>
 
 <!--motor 3 link-->
@@ -266,14 +294,15 @@
 <joint name="joint_5" type="revolute">
     <origin xyz="-0.01 0.0 0.046" rpy="0.0 0.0 0.0"/>
     <parent link="motor4_link"/>
-    <child link="ee_link"/>
+    <child link="motor5_link"/>
     <axis xyz="0.0 0.0 1.0"/>
-    <limit lower="-3.1415" upper="3.1415" effort="80" velocity="50"/>
+    <limit lower="${motor5_lower_limit}" upper="${motor5_upper_limit}" 
+              effort="${link5_effort}" velocity="${link5_velocity}"/>
 </joint>
 
 
-<!-- ee link (end effector)-->
-<link name="ee_link">
+<!-- motor 5 link -->
+<link name="motor5_link">
     <xacro:default_inertial mass="0.05"/>
     <visual>
         <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
@@ -288,11 +317,5 @@
         </geometry>
     </collision>
 </link>
-
-<xacro:default_transmission number="1"/>
-<xacro:default_transmission number="2"/>
-<xacro:default_transmission number="3"/>
-<xacro:default_transmission number="4"/>
-<xacro:default_transmission number="5"/>
 
 </robot>

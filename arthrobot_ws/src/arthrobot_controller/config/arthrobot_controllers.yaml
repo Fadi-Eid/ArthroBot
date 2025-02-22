@@ -1,20 +1,37 @@
 controller_manager:
   ros__parameters:
-    update_rate: 10 # in Hz
+    update_rate: 20 # command and state interface reading frequency in Hz
+    use_sim_time: false
 
-    arm_controller:
+    arthrobot_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    # gripper_controller:
-    #   type: forward_command_controller/ForwardCommandController
+    arthrobot_servo_controller:
+      type: position_controllers/JointGroupPositionController
 
-    gripper_controller:
+    arthrobot_gripper_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    joint_state_broadcaster:
+    joint_state_broadcaster:  # publishes the current state of each joint to a topic
       type: joint_state_broadcaster/JointStateBroadcaster
 
-arm_controller:
+
+# Configure the parameters of the above three controllers that will be loaded by the controller manager
+arthrobot_controller:
+  ros__parameters:
+    joints:
+      - joint_1
+      - joint_2
+      - joint_3
+      - joint_4
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    allow_integration_in_goal_trajectories: true
+
+
+arthrobot_servo_controller:
   ros__parameters:
     joints:
       - joint_1
@@ -22,26 +39,12 @@ arm_controller:
       - joint_3
       - joint_4
 
-    command_interfaces:
-      - position
-
-    state_interfaces:
-      - position
-    
-    open_loop_control: true
-    allow_integration_in_goal_trajectories: true
-gripper_controller:
+arthrobot_gripper_controller:
   ros__parameters:
     joints:
       - joint_5
-
-    interface_name: position
-      
     command_interfaces:
       - position
-
     state_interfaces:
       - position
-
-    open_loop_control: true
     allow_integration_in_goal_trajectories: true

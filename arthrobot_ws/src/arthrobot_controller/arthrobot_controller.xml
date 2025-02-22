@@ -1,0 +1,9 @@
+<library path="arthrobot_controller">
+    <class name="arthrobot_controller/ArthrobotHardwareInterface"
+           type="arthrobot_controller::ArthrobotHardwareInterface"
+           base_class_type="hardware_interface::SystemInterface">
+        <description>
+            Arthrobot Hardware Interface
+        </description>
+    </class>
+</library>

@@ -2,53 +2,67 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arthrobot">
 
     <ros2_control name="RobotSystem" type="system">
-
         <xacro:property name="PI" value="3.14159265359" />
+        <xacro:property name="motor1_upper_limit"  value="${PI}"/>
+        <xacro:property name="motor1_lower_limit"  value="-${PI}"/>
+        <xacro:property name="motor2_upper_limit"  value="${PI}"/>
+        <xacro:property name="motor2_lower_limit"  value="-${PI}"/>
+        <xacro:property name="motor3_upper_limit"  value="${PI}"/>
+        <xacro:property name="motor3_lower_limit"  value="-${PI}"/>
+        <xacro:property name="motor4_upper_limit"  value="${PI}"/>
+        <xacro:property name="motor4_lower_limit"  value="-${PI}"/>
+        <xacro:property name="motor5_upper_limit"  value="${PI}"/>
+        <xacro:property name="motor5_lower_limit"  value="-${PI}"/>
 
-        <!-- ros2_control Gazebo -->
+        <!-- Custom Hardware Interface -->
         <hardware>
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            <plugin>byrot_arm_controller/ArthrobotHardwareInterface</plugin>
         </hardware>
-
+        
+        <!-- BYROT's Arm -->
         <joint name="joint_1">
+            <param name="initial_position">0.0</param>
             <command_interface name="position">
-            <param name="min">-${PI}</param>
-            <param name="max">${PI}</param>
+                <param name="min">motor1_lower_limit</param>
+                <param name="max">motor1_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
-
         <joint name="joint_2">
+            <param name="initial_position">0.0</param>
             <command_interface name="position">
-            <param name="min">-${PI}</param>
-            <param name="max">${PI}</param>
+                <param name="min">motor2_lower_limit</param>
+                <param name="max">motor2_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
-
         <joint name="joint_3">
+            <param name="initial_position">0.0</param>
             <command_interface name="position">
-            <param name="min">-${PI}</param>
-            <param name="max">${PI}</param>
+                <param name="min">motor3_lower_limit</param>
+                <param name="max">motor3_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
-
         <joint name="joint_4">
+            <param name="initial_position">0.0</param>
             <command_interface name="position">
-            <param name="min">-${PI}</param>
-            <param name="max">${PI}</param>
+                <param name="min">motor4_lower_limit</param>
+                <param name="max">motor4_upper_limit</param>
+            </command_interface>
+            <state_interface name="position"/>
+        </joint>
+        
+        <!-- BYROT's gripper -->
+        <joint name="joint_5">
+            <param name="initial_position">0.0</param>
+            <command_interface name="position">
+                <param name="min">motor4_lower_limit</param>
+                <param name="max">motor4_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
 
-        <joint name="joint_5">
-            <command_interface name="position">
-            <param name="min">-${PI}</param>
-            <param name="max">${PI}</param>
-            </command_interface>
-            <state_interface name="position"/>
-        </joint>
     </ros2_control>
 
 </robot>
