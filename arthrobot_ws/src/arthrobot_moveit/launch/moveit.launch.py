@@ -39,6 +39,7 @@ def generate_launch_description():
         )
         .robot_description_semantic(file_path="config/arthrobot.srdf")
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
+        .planning_pipelines("ompl", ["ompl"])
         .to_moveit_configs()
     )
 
@@ -47,7 +48,9 @@ def generate_launch_description():
         executable="move_group",
         output="screen",
         parameters=[moveit_config.to_dict(), 
-                    {'publish_robot_description_semantic': True}],
+                    {'publish_robot_description_semantic': True},
+                    #{'use_sim_time': True}
+                    ],
         arguments=["--ros-args", "--log-level", "info"],
     )
 
@@ -83,6 +86,7 @@ def generate_launch_description():
             moveit_config.robot_description,
             moveit_config.robot_description_semantic,
             moveit_config.robot_description_kinematics,
+            servo_params,
         ],
         output={
             "stdout": "screen",
