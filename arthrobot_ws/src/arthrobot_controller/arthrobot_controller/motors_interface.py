@@ -22,7 +22,7 @@ class MotorsInterface(Node):
         joint4_cmd = msg.joint4_pos
         joint5_cmd = msg.joint5_pos
         
-        self.get_logger().info(f"Received gripper command: {joint1_cmd}/{joint2_cmd}/{joint3_cmd}/{joint4_cmd}/{joint5_cmd}")
+        # self.get_logger().info(f"Received command: {joint1_cmd}/{joint2_cmd}/{joint3_cmd}/{joint4_cmd}/{joint5_cmd}")
         #self.send_data(self.ser, joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd)
 
     def setup_serial(self, port_name, baudrate=115200):
