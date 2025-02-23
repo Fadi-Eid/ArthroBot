@@ -16,10 +16,10 @@
 
         <!-- Custom Hardware Interface -->
         <hardware>
-            <plugin>byrot_arm_controller/ArthrobotHardwareInterface</plugin>
+            <plugin>arthrobot_controller/ArthrobotHardwareInterface</plugin>
         </hardware>
         
-        <!-- BYROT's Arm -->
+        <!-- Arthrobot's Arm -->
         <joint name="joint_1">
             <param name="initial_position">0.0</param>
             <command_interface name="position">
@@ -53,12 +53,11 @@
             <state_interface name="position"/>
         </joint>
         
-        <!-- BYROT's gripper -->
         <joint name="joint_5">
             <param name="initial_position">0.0</param>
             <command_interface name="position">
-                <param name="min">motor4_lower_limit</param>
-                <param name="max">motor4_upper_limit</param>
+                <param name="min">motor5_lower_limit</param>
+                <param name="max">motor5_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>

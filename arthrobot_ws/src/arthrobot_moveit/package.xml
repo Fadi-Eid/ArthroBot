@@ -4,7 +4,7 @@
   <name>arthrobot_moveit</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="fadieid.eng@gmail.com">fadi</maintainer>
+  <maintainer email="fadieid.eng@gmail.com">fadi.eid</maintainer>
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -12,6 +12,7 @@
   <exec_depend>ros2launch</exec_depend>
   <exec_depend>rviz2</exec_depend>
   <exec_depend>moveit_config_utils</exec_depend>
+  <depend>moveit</depend>
 
 
   <test_depend>ament_lint_auto</test_depend>

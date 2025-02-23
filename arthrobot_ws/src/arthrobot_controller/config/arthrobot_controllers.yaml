@@ -29,6 +29,7 @@ arthrobot_controller:
     state_interfaces:
       - position
     allow_integration_in_goal_trajectories: true
+    open_loop_control: true
 
 
 arthrobot_servo_controller:
@@ -48,3 +49,5 @@ arthrobot_gripper_controller:
     state_interfaces:
       - position
     allow_integration_in_goal_trajectories: true
+    open_loop_control: true
+    
