@@ -59,12 +59,6 @@ def generate_launch_description():
         arguments=["arthrobot_servo_controller", "--controller-manager", "/controller_manager", "--stopped"],
     )
 
-    gripper_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["arthrobot_gripper_controller", "--controller-manager", "/controller_manager"],
-    )
-
     motors_interface_node = Node(
         package="arthrobot_controller",
         executable="motors_interface.py",
@@ -78,7 +72,6 @@ def generate_launch_description():
             joint_state_broadcaster_spawner,
             arm_controller_spawner,
             arm_servo_controller_spawner,
-            gripper_controller_spawner,
             motors_interface_node,
         ]
     )

@@ -305,15 +305,63 @@
 <link name="motor5_link">
     <xacro:default_inertial mass="0.05"/>
     <visual>
-        <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
+        <origin xyz="0.0 0.0725 0.012" rpy="-1.57 0.0 0.0"/>
         <geometry>
             <cylinder radius="0.012" length="0.145"/>
         </geometry>
     </visual>
     <collision>
-        <origin xyz="0.0 0.0 0.012" rpy="-1.57 0.0 0.0"/>
+        <origin xyz="0.0 0.0725 0.012" rpy="-1.57 0.0 0.0"/>
         <geometry>
             <cylinder radius="0.012" length="0.145"/>
+        </geometry>
+    </collision>
+</link>
+
+<!-- End effector support joint-->
+<joint name="joint_ee_support" type="fixed">
+    <origin xyz="0.0 0.145 0.012" rpy="0.0 0.0 0.0"/>
+    <parent link="motor5_link"/>
+    <child link="ee_link_support"/>
+</joint>
+
+<!-- End effector support link -->
+<link name="ee_link_support">
+    <xacro:default_inertial mass="0.05"/>
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.012" length="0.012"/>
+        </geometry>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.012" length="0.012"/>
+        </geometry>
+    </collision>
+</link>
+
+<!-- End effector joint-->
+<joint name="joint_ee" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="ee_link_support"/>
+    <child link="ee_link"/>
+</joint>
+
+<!-- End effector link -->
+<link name="ee_link">
+    <xacro:default_inertial mass="0.05"/>
+    <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.012" length="0.012"/>
+        </geometry>
+    </visual>
+    <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <cylinder radius="0.012" length="0.012"/>
         </geometry>
     </collision>
 </link>
