@@ -76,6 +76,7 @@ def generate_launch_description():
 
     servo_yaml = load_yaml("arthrobot_moveit", "config/servo_params.yaml")
     servo_params = {"moveit_servo": servo_yaml}
+    servo_kinematics_yaml = load_yaml("arthrobot_moveit", "config/servo_kinematics.yaml")
 
     servo_node = Node(
         package="moveit_servo",
@@ -85,8 +86,9 @@ def generate_launch_description():
             servo_params,
             moveit_config.robot_description,
             moveit_config.robot_description_semantic,
-            moveit_config.robot_description_kinematics,
+            #moveit_config.robot_description_kinematics,
             servo_params,
+            servo_kinematics_yaml,
         ],
         output={
             "stdout": "screen",
