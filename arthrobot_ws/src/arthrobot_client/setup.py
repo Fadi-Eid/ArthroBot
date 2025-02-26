@@ -6,7 +6,10 @@ setup(
     name=package_name,
     version='0.0.0',
     packages=find_packages(exclude=['test']),
-    py_modules=['arthrobot_client.arthrobot_servo_client'],
+    py_modules=[
+        'arthrobot_client.arthrobot_servo_client', 
+        'arthrobot_client.arthrobot_control_gui'
+    ],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
@@ -21,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'arthrobot_servo_client = arthrobot_client.arthrobot_servo_client:main'
+            'arthrobot_servo_client = arthrobot_client.arthrobot_servo_client:main',
+            'arthrobot_control_gui = arthrobot_client.arthrobot_control_gui:main'
         ],
     },
 )
