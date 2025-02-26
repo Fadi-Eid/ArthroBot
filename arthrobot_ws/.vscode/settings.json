@@ -10,5 +10,10 @@
         "/home/fadi/ArthroBot/arthrobot_ws/install/arthrobot_msgs/local/lib/python3.10/dist-packages",
         "/opt/ros/humble/lib/python3.10/site-packages",
         "/opt/ros/humble/local/lib/python3.10/dist-packages"
-    ]
+    ],
+    "files.associations": {
+        "*.cpp": "cpp",
+        "array": "cpp",
+        "string_view": "cpp"
+    }
 }

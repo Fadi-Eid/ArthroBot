@@ -15,9 +15,22 @@ namespace arthrobot_controller
     double joint1_position_feedback {0};
     double joint2_position_feedback {0};
     double joint3_position_feedback {0};
+    double joint4_position_feedback {0};
+    double joint5_position_feedback {0};
+
+    void data_callback(const arthrobot_interfaces::msg::ArthrobotPositionCommand::SharedPtr msg) 
+    {
+        joint1_position_feedback = msg->joint1_pos;
+        joint2_position_feedback = msg->joint2_pos;
+        joint3_position_feedback = msg->joint3_pos;
+        joint4_position_feedback = msg->joint4_pos;
+        joint5_position_feedback = msg->joint5_pos;
+    }
+
 
     auto node = rclcpp::Node::make_shared("hardware_interface_node");
     auto data_publisher = node->create_publisher<arthrobot_interfaces::msg::ArthrobotPositionCommand>("arthrobot_hardware_commands", 10);
+    auto data_subscriber = node->create_subscription<arthrobot_interfaces::msg::ArthrobotPositionCommand>("arthrobot_hardware_feedback", 10, data_callback);
 
     ArthrobotHardwareInterface::ArthrobotHardwareInterface()
     {
@@ -25,10 +38,7 @@ namespace arthrobot_controller
     }   
 
     ArthrobotHardwareInterface::~ArthrobotHardwareInterface() {
-        if (outFile_.is_open()) {
-            outFile_.close();
-        }
-        RCLCPP_INFO(rclcpp::get_logger("ArthrobotHardwareInterface"), "Communication with serial port closed");
+        
     }
 
     CallbackReturn ArthrobotHardwareInterface::on_init(const hardware_interface::HardwareInfo& hardware_info) {
@@ -66,7 +76,6 @@ namespace arthrobot_controller
         (void)previous_sate;    // supress unused parameter compiler warning
         RCLCPP_INFO(rclcpp::get_logger("ArthrobotHardwareInterface"), \
                     "Starting arthrobot Hardware");
-        // Open the communication port here
 
         position_states_ = {0.0, 0.0, 0.0, 0.0, 0.0};
         position_commands_ = {0.0, 0.0, 0.0, 0.0, 0.0}; 
@@ -83,7 +92,6 @@ namespace arthrobot_controller
         (void)previous_sate;    // supress unused parameter compiler warning
         RCLCPP_INFO(rclcpp::get_logger("ArthrobotHardwareInterface"), \
                     "Deactivating arthrobot Hardware");
-        // Close the communication port here
 
         RCLCPP_INFO(rclcpp::get_logger("ArthrobotHardwareInterface"), \
                 "arthrobot Hardware Deactivated.");
@@ -96,11 +104,11 @@ namespace arthrobot_controller
         (void)time;
         (void)period;
         rclcpp::spin_some(node);
-        position_states_[0] = position_commands_.at(0);
-        position_states_[1] = position_commands_.at(1);
-        position_states_[2] = position_commands_.at(2);
-        position_states_[3] = position_commands_.at(3);
-        position_states_[4] = position_commands_.at(4);
+        position_states_[0] = joint1_position_feedback;
+        position_states_[1] = joint2_position_feedback;
+        position_states_[2] = joint3_position_feedback;
+        position_states_[3] = joint4_position_feedback;
+        position_states_[4] = joint5_position_feedback;
 
         return hardware_interface::return_type::OK;
     }

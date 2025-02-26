@@ -33,10 +33,6 @@ namespace arthrobot_controller {
             std::vector<double> position_commands_;
             std::vector<double> prev_position_commands_;
             std::vector<double> position_states_;
-
-            std::string port_;
-            mutable std::ofstream outFile_;
-
     };
 } 
 
