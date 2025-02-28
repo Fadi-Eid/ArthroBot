@@ -7,12 +7,24 @@ import serial
 # To allow usage of the USB hadrware without sudo, check the link below
 # https://askubuntu.com/questions/133235/how-do-i-allow-non-root-access-to-ttyusb0
 
+
+serial_port = "/dev/ttyUSB0"
+baud_rate = 115200
+
 class MotorsInterface(Node):
 
     def __init__(self):
         super().__init__("motors_interface_node")
 
-        #self.ser = self.setup_serial("/dev/ttyUSB0")
+        self.isSim = None # Simulation / Hardware flag (Use launch arguments later)
+
+        try:
+            self.ser = serial.Serial(serial_port, baud_rate)
+            self.isSim = False
+            self.get_logger().info("\033[1;33mRunning on real hardware\033[0m")
+        except:
+            self.isSim = True
+            self.get_logger().info("\033[1;33mRunning in simulation\033[0m")
 
         self.motor_commands = self.create_subscription(ArthrobotPositionCommand, "arthrobot_hardware_commands", self.motor_commands_callback, 10)
         self.motor_feedback = self.create_publisher(ArthrobotPositionCommand, "arthrobot_hardware_feedback", 10)
@@ -21,27 +33,33 @@ class MotorsInterface(Node):
         self.get_logger().info("Motors Interface Node Started")
 
     def timer_callback(self):
-        pass
-        #self.receive_data(self.ser)
+        if not self.isSim:
+            self.receive_data()
+        else:
+            return
 
-    def receive_data(self, ser):
-        pass
-        #if ser.in_waiting > 0:
-            # data = ser.readline().decode('utf-8').strip()
-            # parts = data.split(',') 
-            # try:
-                # Attempt to convert the split string parts into float values
-                # msg = ArthrobotPositionCommand()
-                # msg.joint1_pos = float(parts[0])
-                # msg.joint2_pos = float(parts[1])
-                # msg.joint3_pos = float(parts[2])
-                # msg.joint4_pos = float(parts[3])
-                # msg.joint5_pos = float(parts[4])
-                # self.motor_feedback.publish(msg)
+    def receive_data(self):
+        try:
+            if self.ser.in_waiting > 0:
+                data = self.ser.readline().decode('utf-8').strip()
+                parts = data.split(',') 
+                try:
+                    # Attempt to convert the split string parts into float values
+                    msg = ArthrobotPositionCommand()
+                    msg.joint1_pos = float(parts[0])
+                    msg.joint2_pos = float(parts[1])
+                    msg.joint3_pos = float(parts[2])
+                    msg.joint4_pos = float(parts[3])
+                    msg.joint5_pos = float(parts[4])
+                    self.motor_feedback.publish(msg) # real feedback
+                except (ValueError, IndexError):
+                    self.get_logger().info("\033[31mCould not get data. Maybe data rate is too high. Try to lower it\033[0m")
+                    pass
+        except:
+            self.get_logger().info("\033[31mHardware undetectable, switching to simulation\033[0m")
+            self.get_logger().info("\033[1;33mRunning in simulation\033[0m")
+            self.isSim = True
 
-            # except (ValueError, IndexError):
-            #     self.get_logger().info("\033[31mCould not parse float. Maybe data rate is too high. Try to lower it\033[0m")
-            #     pass
 
     def motor_commands_callback(self, msg):
         joint1_cmd = msg.joint1_pos
@@ -50,30 +68,21 @@ class MotorsInterface(Node):
         joint4_cmd = msg.joint4_pos
         joint5_cmd = msg.joint5_pos
 
-        self.motor_feedback.publish(msg) # fake feedback for now
-        
-        # self.get_logger().info(f"Received command: {joint1_cmd}/{joint2_cmd}/{joint3_cmd}/{joint4_cmd}/{joint5_cmd}")
-        # self.send_data(self.ser, joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd)
-
-    def setup_serial(self, port_name, baudrate=115200):
-        ser = serial.Serial(
-            port=port_name,
-            baudrate=baudrate,
-            timeout=1  # Timeout for read operations
-        )
-        if ser.is_open:
-            self.get_logger().info("Serial port opened successfully")
+        if self.isSim:
+            self.motor_feedback.publish(msg) # fake feedback
         else:
-            self.get_logger().error("Could not open serial port")
-        # Flush both input and output buffers
-        ser.reset_input_buffer() 
-        ser.reset_output_buffer()  
-        return ser
+            self.send_data(self.ser, joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd)
     
     # Function to send data in the format float1,float2,float3
-    def send_data(self, ser, f1, f2, f3): # to the motor
+    def send_data(self, f1, f2, f3): # to the motor
         data = "{:.2f},{:.2f},{:.2f}\n".format(f1, f2, f3)
-        #ser.write(data.encode('utf-8'))  # Send the data as bytes
+        try:
+            self.ser.write(data.encode('utf-8'))  # Send the data as bytes
+        except:
+            self.get_logger().info("\033[31mHardware undetectable, switching to simulation\033[0m")
+            self.isSim = True
+            self.get_logger().info("\033[1;33mRunning in simulation\033[0m")
+
 
 
 def main():
