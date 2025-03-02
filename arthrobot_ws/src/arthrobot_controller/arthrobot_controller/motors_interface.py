@@ -8,7 +8,7 @@ import serial
 # https://askubuntu.com/questions/133235/how-do-i-allow-non-root-access-to-ttyusb0
 
 
-serial_port = "/dev/ttyUSB0"
+serial_port = "/dev/ttyACM0"
 baud_rate = 115200
 
 class MotorsInterface(Node):
@@ -62,23 +62,26 @@ class MotorsInterface(Node):
 
 
     def motor_commands_callback(self, msg):
-        joint1_cmd = msg.joint1_pos
-        joint2_cmd = msg.joint2_pos
-        joint3_cmd = msg.joint3_pos
-        joint4_cmd = msg.joint4_pos
-        joint5_cmd = msg.joint5_pos
+        joint1_cmd = msg.joint1_pos * (57.2957) + 90
+        joint2_cmd = msg.joint2_pos * (57.2957) + 90
+        joint3_cmd = msg.joint3_pos * (57.2957) + 90
+        joint4_cmd = msg.joint4_pos * (57.2957) + 90
+        joint5_cmd = msg.joint5_pos * (57.2957) + 90
 
-        if self.isSim:
-            self.motor_feedback.publish(msg) # fake feedback
-        else:
-            self.send_data(self.ser, joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd)
+        if not self.isSim:
+             self.send_data(joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd)
+        
+        self.motor_feedback.publish(msg) # fake feedback
+           
     
     # Function to send data in the format float1,float2,float3
-    def send_data(self, f1, f2, f3): # to the motor
-        data = "{:.2f},{:.2f},{:.2f}\n".format(f1, f2, f3)
+    def send_data(self, f1, f2, f3, f4, f5): # to the motor
+        data = "{:.2f},{:.2f},{:.2f},{:.2f},{:.2f}\n".format(f1, f2, f3, f4, f5)
+        # self.get_logger().info(f"data: {data}")
         try:
-            self.ser.write(data.encode('utf-8'))  # Send the data as bytes
+            self.ser.write(data.encode())  # Send the data as bytes
         except:
+            pass
             self.get_logger().info("\033[31mHardware undetectable, switching to simulation\033[0m")
             self.isSim = True
             self.get_logger().info("\033[1;33mRunning in simulation\033[0m")

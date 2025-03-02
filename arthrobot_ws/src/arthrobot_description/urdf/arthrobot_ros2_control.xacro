@@ -3,16 +3,16 @@
 
     <ros2_control name="RobotSystem" type="system">
         <xacro:property name="PI" value="3.14159265359" />
-        <xacro:property name="motor1_upper_limit"  value="${PI}"/>
-        <xacro:property name="motor1_lower_limit"  value="-${PI}"/>
-        <xacro:property name="motor2_upper_limit"  value="${PI}"/>
-        <xacro:property name="motor2_lower_limit"  value="-${PI}"/>
-        <xacro:property name="motor3_upper_limit"  value="${PI}"/>
-        <xacro:property name="motor3_lower_limit"  value="-${PI}"/>
-        <xacro:property name="motor4_upper_limit"  value="${PI}"/>
-        <xacro:property name="motor4_lower_limit"  value="-${PI}"/>
-        <xacro:property name="motor5_upper_limit"  value="${PI}"/>
-        <xacro:property name="motor5_lower_limit"  value="-${PI}"/>
+        <xacro:property name="motor1_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="motor1_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="motor2_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="motor2_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="motor3_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="motor3_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="motor4_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="motor4_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="motor5_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="motor5_lower_limit"  value="-${PI/2}"/>
 
         <!-- Custom Hardware Interface -->
         <hardware>
