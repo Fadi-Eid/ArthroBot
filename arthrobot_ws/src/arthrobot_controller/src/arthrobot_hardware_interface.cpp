@@ -12,19 +12,21 @@
 
 namespace arthrobot_controller
 {
-    double joint1_position_feedback {0};
-    double joint2_position_feedback {0};
-    double joint3_position_feedback {0};
-    double joint4_position_feedback {0};
-    double joint5_position_feedback {0};
+    double waist_position_feedback {0};
+    double shoulder_position_feedback {0};
+    double forearm_position_feedback {0};
+    double wrist_position_feedback {0};
+    double palm_position_feedback {0};
+    double gripper_position_feedback {0};
 
     void data_callback(const arthrobot_interfaces::msg::ArthrobotPositionCommand::SharedPtr msg) 
     {
-        joint1_position_feedback = msg->joint1_pos;
-        joint2_position_feedback = msg->joint2_pos;
-        joint3_position_feedback = msg->joint3_pos;
-        joint4_position_feedback = msg->joint4_pos;
-        joint5_position_feedback = msg->joint5_pos;
+        waist_position_feedback = msg->waist_pos;
+        shoulder_position_feedback = msg->shoulder_pos;
+        forearm_position_feedback = msg->forearm_pos;
+        wrist_position_feedback = msg->wrist_pos;
+        palm_position_feedback = msg->palm_pos;
+        gripper_position_feedback = msg->gripper_pos;
     }
 
 
@@ -77,9 +79,9 @@ namespace arthrobot_controller
         RCLCPP_INFO(rclcpp::get_logger("ArthrobotHardwareInterface"), \
                     "Starting arthrobot Hardware");
 
-        position_states_ = {0.0, 0.0, 0.0, 0.0, 0.0};
-        position_commands_ = {0.0, 0.0, 0.0, 0.0, 0.0}; 
-        prev_position_commands_ = {0.0, 0.0, 0.0, 0.0, 0.0};
+        position_states_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        position_commands_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}; 
+        prev_position_commands_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
         RCLCPP_INFO(rclcpp::get_logger("ArthrobotHardwareInterface"), \
                     "arthrobot Hardware Activated. Ready to take commands");
@@ -104,11 +106,12 @@ namespace arthrobot_controller
         (void)time;
         (void)period;
         rclcpp::spin_some(node);
-        position_states_[0] = joint1_position_feedback;
-        position_states_[1] = joint2_position_feedback;
-        position_states_[2] = joint3_position_feedback;
-        position_states_[3] = joint4_position_feedback;
-        position_states_[4] = joint5_position_feedback;
+        position_states_[0] = waist_position_feedback;
+        position_states_[1] = shoulder_position_feedback;
+        position_states_[2] = forearm_position_feedback;
+        position_states_[3] = wrist_position_feedback;
+        position_states_[4] = palm_position_feedback;
+        position_states_[5] = gripper_position_feedback;
 
         return hardware_interface::return_type::OK;
     }
@@ -123,11 +126,12 @@ namespace arthrobot_controller
 
         arthrobot_interfaces::msg::ArthrobotPositionCommand msg;
             
-        msg.joint1_pos = position_commands_.at(0);
-        msg.joint2_pos = position_commands_.at(1);
-        msg.joint3_pos = position_commands_.at(2);
-        msg.joint4_pos = position_commands_.at(3);
-        msg.joint5_pos = position_commands_.at(4);
+        msg.waist_pos = position_commands_.at(0);
+        msg.shoulder_pos = position_commands_.at(1);
+        msg.forearm_pos = position_commands_.at(2);
+        msg.wrist_pos = position_commands_.at(3);
+        msg.palm_pos = position_commands_.at(4);
+        msg.gripper_pos = position_commands_.at(5);
 
         data_publisher->publish(msg);
         

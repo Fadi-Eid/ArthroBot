@@ -46,11 +46,12 @@ class MotorsInterface(Node):
                 try:
                     # Attempt to convert the split string parts into float values
                     msg = ArthrobotPositionCommand()
-                    msg.joint1_pos = float(parts[0])
-                    msg.joint2_pos = float(parts[1])
-                    msg.joint3_pos = float(parts[2])
-                    msg.joint4_pos = float(parts[3])
-                    msg.joint5_pos = float(parts[4])
+                    msg.waist_pos = float(parts[0])
+                    msg.shoulder_pos = float(parts[1])
+                    msg.forearm_pos = float(parts[2])
+                    msg.wrist_pos = float(parts[3])
+                    msg.palm_pos = float(parts[4])
+                    msg.gripper_pos = float(parts[5])
                     self.motor_feedback.publish(msg) # real feedback
                 except (ValueError, IndexError):
                     self.get_logger().info("\033[31mCould not get data. Maybe data rate is too high. Try to lower it\033[0m")
@@ -62,21 +63,22 @@ class MotorsInterface(Node):
 
 
     def motor_commands_callback(self, msg):
-        joint1_cmd = msg.joint1_pos * (57.2957) + 90
-        joint2_cmd = msg.joint2_pos * (57.2957) + 90
-        joint3_cmd = msg.joint3_pos * (57.2957) + 90
-        joint4_cmd = msg.joint4_pos * (57.2957) + 90
-        joint5_cmd = msg.joint5_pos * (57.2957) + 90
+        joint1_cmd = msg.waist_pos * (57.2957) + 90
+        joint2_cmd = msg.shoulder_pos * (57.2957) + 90
+        joint3_cmd = msg.forearm_pos * (57.2957) + 90
+        joint4_cmd = msg.wrist_pos * (57.2957) + 90
+        joint5_cmd = msg.palm_pos * (57.2957) + 90
+        joint6_cmd = msg.gripper_pos * (57.2957) + 90
 
         if not self.isSim:
-             self.send_data(joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd)
+             self.send_data(joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd, joint6_cmd)
         
         self.motor_feedback.publish(msg) # fake feedback
            
     
     # Function to send data in the format float1,float2,float3
-    def send_data(self, f1, f2, f3, f4, f5): # to the motor
-        data = "{:.2f},{:.2f},{:.2f},{:.2f},{:.2f}\n".format(f1, f2, f3, f4, f5)
+    def send_data(self, f1, f2, f3, f4, f5, f6): # to the motor
+        data = "{:.2f},{:.2f},{:.2f},{:.2f},{:.2f},{:.2f}\n".format(f1, f2, f3, f4, f5, f6)
         # self.get_logger().info(f"data: {data}")
         try:
             self.ser.write(data.encode())  # Send the data as bytes

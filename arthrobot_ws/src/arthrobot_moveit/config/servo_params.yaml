@@ -14,7 +14,7 @@ scale:
   joint: 1.0
 
 ## Properties of outgoing commands
-publish_period: 0.05  # 1/Nominal publish rate [seconds]
+publish_period: 0.0166  # 1/Nominal publish rate [seconds]
 low_latency_mode: false  # Set this to true to publish as soon as an incoming Twist command is received (publish_period is ignored)
 
 # What type of topic does your robot driver expect?
@@ -34,8 +34,8 @@ move_group_name:  arthrobot_arm  # Often 'manipulator' or 'arm'
 planning_frame: base_link  # The MoveIt planning frame. Often 'base_link' or 'world'
 
 ## Other frames
-ee_frame_name: ee_link  # The name of the end effector link, used to return the EE pose
-robot_link_command_frame:  base_link  # commands must be given in the frame of a robot link. Usually either the base or end effector
+ee_frame_name: right_finger_base_link  # The name of the end effector link, used to return the EE pose
+robot_link_command_frame:  right_finger_base_link  # commands must be given in the frame of a robot link. Usually either the base or end effector
 
 ## Stopping behaviour
 incoming_command_timeout:  0.2  # Stop servoing if X seconds elapse without a new command

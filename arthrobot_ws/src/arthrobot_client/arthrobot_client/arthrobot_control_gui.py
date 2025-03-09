@@ -18,8 +18,8 @@ class ArthrobotControlGUI:
             "X-": (1, 1, lambda: self.start_cartesian(2)),
             "Z+": (0, 2, lambda: self.start_cartesian(3)),
             "Z-": (2, 2, lambda: self.start_cartesian(4)),
-            "Rot+Y": (0, 1, lambda: self.start_cartesian(5)),
-            "Rot-Y": (2, 1, lambda: self.start_cartesian(6)),
+            "Rot+X": (0, 1, lambda: self.start_cartesian(5)),
+            "Rot-X": (2, 1, lambda: self.start_cartesian(6)),
             "Y+": (0, 0, lambda: self.start_cartesian(7)),
             "Y-": (2, 0, lambda: self.start_cartesian(8))
         }
@@ -32,11 +32,11 @@ class ArthrobotControlGUI:
 
         # Joint Control Buttons
         self.joint_buttons = {
-            "Joint 1": (3, 0, lambda: self.start_joint(1)),
-            "Joint 2": (3, 1, lambda: self.start_joint(2)),
-            "Joint 3": (3, 2, lambda: self.start_joint(3)),
-            "Joint 4": (4, 0, lambda: self.start_joint(4)),
-            "Joint 5": (4, 1, lambda: self.start_joint(5))
+            "Waist Joint": (3, 0, lambda: self.start_joint(1)),
+            "Shoulder Joint": (3, 1, lambda: self.start_joint(2)),
+            "Forearm Joint": (3, 2, lambda: self.start_joint(3)),
+            "Wrist Joint": (4, 0, lambda: self.start_joint(4)),
+            "Palm Joint": (4, 1, lambda: self.start_joint(5))
         }
 
         for text, (row, col, cmd) in self.joint_buttons.items():

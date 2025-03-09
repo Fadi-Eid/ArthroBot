@@ -3,53 +3,63 @@
     <group name="arthrobot_arm">
         <link name="world"/>
         <link name="base_link"/>
-        <link name="motor1_link"/>
-        <link name="motor2_link"/>
-        <link name="bar1_link"/>
-        <link name="bar2_link"/>
-        <link name="motor3_link"/>
-        <link name="motor4_link"/>
-        <link name="motor5_link"/>
-        <link name="ee_link_support"/>
+        <link name="waist_link"/>
+        <link name="shoulder_link"/>
+        <link name="forearm_link"/>
+        <link name="wrist_link"/>
+        <link name="palm_link"/>
     </group>
     <group name="arthrobot_ee">
-        <link name="ee_link"/>
+        <link name="right_finger_base_link"/>
+        <link name="left_finger_base_link"/>
+        <link name="right_finger_link"/>
+        <link name="left_finger_link"/>
+        <link name="left_fingertip_link"/>
+        <link name="right_fingertip_link"/>
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     <group_state name="home" group="arthrobot_arm">
-        <joint name="joint_1" value="0"/>
-        <joint name="joint_2" value="0"/>
-        <joint name="joint_3" value="0"/>
-        <joint name="joint_4" value="0"/>
-        <joint name="joint_5" value="0"/>
+        <joint name="waist_joint" value="0"/>
+        <joint name="shoulder_joint" value="0"/>
+        <joint name="forearm_joint" value="0"/>
+        <joint name="wrist_joint" value="0"/>
+        <joint name="palm_joint" value="0"/>
     </group_state>
     <group_state name="pose" group="arthrobot_arm">
-        <joint name="joint_1" value="0"/>
-        <joint name="joint_2" value="0.6769"/>
-        <joint name="joint_3" value="0.538"/>
-        <joint name="joint_4" value="0.2951"/>
-        <joint name="joint_5" value="0"/>
+        <joint name="waist_joint" value="0"/>
+        <joint name="shoulder_joint" value="0.6769"/>
+        <joint name="forearm_joint" value="0.538"/>
+        <joint name="wrist_joint" value="0"/>
+        <joint name="palm_joint" value="0.3"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector group="arthrobot_ee" name="arthrobot_ee" parent_group="arthrobot_arm" parent_link="ee_link_support"/> 
+    <end_effector group="arthrobot_ee" name="arthrobot_ee" parent_group="arthrobot_arm" parent_link="palm_link"/> 
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
-    <disable_collisions link1="bar1_link" link2="bar2_link" reason="Adjacent"/>
-    <disable_collisions link1="bar1_link" link2="motor2_link" reason="Adjacent"/>
-    <disable_collisions link1="bar1_link" link2="motor3_link" reason="Never"/>
-    <disable_collisions link1="bar1_link" link2="motor4_link" reason="Never"/>
-    <disable_collisions link1="bar2_link" link2="motor2_link" reason="Never"/>
-    <disable_collisions link1="bar2_link" link2="motor3_link" reason="Adjacent"/>
-    <disable_collisions link1="bar2_link" link2="motor4_link" reason="Never"/>
-    <disable_collisions link1="base_link" link2="motor1_link" reason="Adjacent"/>
-    <disable_collisions link1="base_link" link2="motor2_link" reason="Never"/>
-    <disable_collisions link1="motor5_link" link2="motor3_link" reason="Never"/>
-    <disable_collisions link1="motor5_link" link2="motor4_link" reason="Adjacent"/>
-    <disable_collisions link1="motor1_link" link2="motor2_link" reason="Adjacent"/>
-    <disable_collisions link1="motor3_link" link2="motor4_link" reason="Adjacent"/>
-    <disable_collisions link1="motor4_link" link2="motor5_link" reason="Adjacent"/>
-    <disable_collisions link1="motor5_link" link2="ee_link" reason="Adjacent"/>
-    <disable_collisions link1="ee_link" link2="ee_link_support" reason="Adjacent"/>
-    <disable_collisions link1="motor5_link" link2="ee_link_support" reason="Adjacent"/>
+    <disable_collisions link1="waist_link" link2="shoulder_link" reason="Adjacent"/>
+    <disable_collisions link1="shoulder_link" link2="forearm_link" reason="Adjacent"/>
+    <disable_collisions link1="forearm_link" link2="wrist_link" reason="Adjacent"/>
+    <disable_collisions link1="wrist_link" link2="palm_link" reason="Adjacent"/>
+    <disable_collisions link1="palm_link" link2="right_finger_base_link" reason="Adjacent"/>
+
+    <disable_collisions link1="right_finger_base_link" link2="left_finger_base_link" reason="Never"/>
+    <disable_collisions link1="right_finger_base_link" link2="right_finger_link" reason="Never"/>
+    <disable_collisions link1="right_finger_base_link" link2="left_finger_link" reason="Never"/>
+    <disable_collisions link1="right_finger_base_link" link2="left_fingertip_link" reason="Never"/>
+    <disable_collisions link1="right_finger_base_link" link2="right_fingertip_link" reason="Never"/>
+
+    <disable_collisions link1="left_finger_base_link" link2="right_finger_link" reason="Never"/>
+    <disable_collisions link1="left_finger_base_link" link2="left_finger_link" reason="Never"/>
+    <disable_collisions link1="left_finger_base_link" link2="left_fingertip_link" reason="Never"/>
+    <disable_collisions link1="left_finger_base_link" link2="right_fingertip_link" reason="Never"/>
+
+    <disable_collisions link1="right_finger_link" link2="left_finger_link" reason="Never"/>
+    <disable_collisions link1="right_finger_link" link2="left_fingertip_link" reason="Never"/>
+    <disable_collisions link1="right_finger_link" link2="right_fingertip_link" reason="Never"/>
+
+    <disable_collisions link1="left_finger_link" link2="left_fingertip_link" reason="Never"/>
+    <disable_collisions link1="left_finger_link" link2="right_fingertip_link" reason="Never"/>
+
+    <disable_collisions link1="left_fingertip_link" link2="right_fingertip_link" reason="Never"/>
 </robot>

@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arthrobot">
 
-    <ros2_control name="RobotSystem" type="system">
+    <ros2_control name="ArthrobotHardware" type="system">
         <xacro:property name="PI" value="3.14159265359" />
-        <xacro:property name="motor1_upper_limit"  value="${PI/2}"/>
-        <xacro:property name="motor1_lower_limit"  value="-${PI/2}"/>
-        <xacro:property name="motor2_upper_limit"  value="${PI/2}"/>
-        <xacro:property name="motor2_lower_limit"  value="-${PI/2}"/>
-        <xacro:property name="motor3_upper_limit"  value="${PI/2}"/>
-        <xacro:property name="motor3_lower_limit"  value="-${PI/2}"/>
-        <xacro:property name="motor4_upper_limit"  value="${PI/2}"/>
-        <xacro:property name="motor4_lower_limit"  value="-${PI/2}"/>
-        <xacro:property name="motor5_upper_limit"  value="${PI/2}"/>
-        <xacro:property name="motor5_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="waist_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="waist_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="shoulder_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="shoulder_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="forearm_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="forearm_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="wrist_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="wrist_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="palm_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="palm_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="gripper_upper_limit"  value="${PI/2}"/>
+        <xacro:property name="gripper_lower_limit"  value="0.0"/>
 
         <!-- Custom Hardware Interface -->
         <hardware>
@@ -20,44 +22,53 @@
         </hardware>
         
         <!-- Arthrobot's Arm -->
-        <joint name="joint_1">
+        <joint name="waist_joint">
             <param name="initial_position">0.0</param>
             <command_interface name="position">
-                <param name="min">motor1_lower_limit</param>
-                <param name="max">motor1_upper_limit</param>
+                <param name="min">waist_lower_limit</param>
+                <param name="max">waist_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
-        <joint name="joint_2">
+        <joint name="shoulder_joint">
             <param name="initial_position">0.0</param>
             <command_interface name="position">
-                <param name="min">motor2_lower_limit</param>
-                <param name="max">motor2_upper_limit</param>
+                <param name="min">shoulder_lower_limit</param>
+                <param name="max">shoulder_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
-        <joint name="joint_3">
+        <joint name="forearm_joint">
             <param name="initial_position">0.0</param>
             <command_interface name="position">
-                <param name="min">motor3_lower_limit</param>
-                <param name="max">motor3_upper_limit</param>
+                <param name="min">forearm_lower_limit</param>
+                <param name="max">forearm_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
-        <joint name="joint_4">
+        <joint name="wrist_joint">
             <param name="initial_position">0.0</param>
             <command_interface name="position">
-                <param name="min">motor4_lower_limit</param>
-                <param name="max">motor4_upper_limit</param>
+                <param name="min">wrist_lower_limit</param>
+                <param name="max">wrist_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>
-        
-        <joint name="joint_5">
+        <joint name="palm_joint">
             <param name="initial_position">0.0</param>
             <command_interface name="position">
-                <param name="min">motor5_lower_limit</param>
-                <param name="max">motor5_upper_limit</param>
+                <param name="min">palm_lower_limit</param>
+                <param name="max">palm_upper_limit</param>
+            </command_interface>
+            <state_interface name="position"/>
+        </joint>
+
+        <!-- Arthrobot's Gripper -->
+        <joint name="gripper_joint">
+            <param name="initial_position">0.0</param>
+            <command_interface name="position">
+                <param name="min">gripper_lower_limit</param>
+                <param name="max">gripper_upper_limit</param>
             </command_interface>
             <state_interface name="position"/>
         </joint>

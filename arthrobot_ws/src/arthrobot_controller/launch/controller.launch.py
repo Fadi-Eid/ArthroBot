@@ -62,6 +62,7 @@ def generate_launch_description():
     motors_interface_node = Node(
         package="arthrobot_controller",
         executable="motors_interface.py",
+        output='screen'
     )
 
     

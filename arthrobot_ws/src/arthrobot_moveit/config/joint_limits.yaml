@@ -2,18 +2,18 @@ default_velocity_scaling_factor: 1.0
 default_acceleration_scaling_factor: 1.0
 
 joint_limits:
-  joint_1:
+  waist_joint:
     has_velocity_limits: false
     has_acceleration_limits: false
-  joint_2:
+  shoulder_joint:
     has_velocity_limits: false
     has_acceleration_limits: false
-  joint_3:
+  forearm_joint:
     has_velocity_limits: false
     has_acceleration_limits: false
-  joint_4:
+  wrist_joint:
     has_velocity_limits: false
     has_acceleration_limits: false
-  joint_5:
+  palm_joint:
     has_velocity_limits: false
     has_acceleration_limits: false

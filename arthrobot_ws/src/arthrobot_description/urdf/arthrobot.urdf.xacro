@@ -4,33 +4,6 @@
     <!-- Include ros2_control Plugins -->
     <xacro:include filename="$(find arthrobot_description)/urdf/arthrobot_ros2_control.xacro"/>
 
-    <!-- Useful XACRO Variables (Properties) -->
-    <xacro:property name="PI" value="3.14159265359" />
-
-    <!-- Upper limits for joint efforts and velocities -->
-    <xacro:property name="link1_effort"        value="2"/>
-    <xacro:property name="link1_velocity"      value="1.0"/>
-    <xacro:property name="link2_effort"        value="2"/>
-    <xacro:property name="link2_velocity"      value="1.0"/>
-    <xacro:property name="link3_effort"        value="1"/>
-    <xacro:property name="link3_velocity"      value="1.0"/>
-    <xacro:property name="link4_effort"        value="1"/>
-    <xacro:property name="link4_velocity"      value="1.0"/>
-    <xacro:property name="link5_effort"       value="5"/>
-    <xacro:property name="link5_velocity"     value="1"/>
-    
-    <xacro:property name="PI" value="3.14159265359" />
-    <xacro:property name="motor1_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="motor1_lower_limit"  value="-${PI/2}"/>
-    <xacro:property name="motor2_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="motor2_lower_limit"  value="-${PI/2}"/>
-    <xacro:property name="motor3_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="motor3_lower_limit"  value="-${PI/2}"/>
-    <xacro:property name="motor4_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="motor4_lower_limit"  value="-${PI/2}"/>
-    <xacro:property name="motor5_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="motor5_lower_limit"  value="-${PI/2}"/>
-
     <!-- Material Colors -->
     <material name="black">
         <color rgba="0.17 0.17 0.17 1.0"/>
@@ -38,12 +11,20 @@
     <material name="gray">
         <color rgba="0.6 0.6 0.6 1.0"/>
     </material>
-    <material name="red">
-        <color rgba="0.9 0.05 0.05 1.0"/>
-    </material>
-    <material name="dark_gray">
-        <color rgba="0.2 0.2 0.2 1.0"/>
-    </material>
+
+    <xacro:property name="PI" value="3.14159265359" />
+    <xacro:property name="waist_upper_limit"  value="${PI/2}"/>
+    <xacro:property name="waist_lower_limit"  value="-${PI/2}"/>
+    <xacro:property name="shoulder_upper_limit"  value="${PI/2}"/>
+    <xacro:property name="shoulder_lower_limit"  value="-${PI/2}"/>
+    <xacro:property name="forearm_upper_limit"  value="${PI/2}"/>
+    <xacro:property name="forearm_lower_limit"  value="-${PI/2}"/>
+    <xacro:property name="wrist_upper_limit"  value="${PI/2}"/>
+    <xacro:property name="wrist_lower_limit"  value="-${PI/2}"/>
+    <xacro:property name="palm_upper_limit"  value="${PI/2}"/>
+    <xacro:property name="palm_lower_limit"  value="-${PI/2}"/>
+    <xacro:property name="gripper_upper_limit"  value="${PI/2}"/>
+    <xacro:property name="gripper_lower_limit"  value="0.0"/>
 
     <xacro:macro name="default_inertial" params="mass">
         <inertial>
@@ -55,316 +36,227 @@
         </inertial>
     </xacro:macro>
 
+    <!-- This is the first link: empty link specifying the world -->
+    <link name="world"></link>
 
-<!-- This is the first link: empty link specifying the world -->
-<link name="world"></link>
+    <!--This is the joint that links the robot's base to the world frame -->
+    <joint name="virtual_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
 
-<!--This is the joint that links the robot's base to the world frame -->
-<joint name="virtual_joint" type="fixed">
-    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    <parent link="world"/>
-    <child link="base_link"/>
-</joint>
+    <link name="base_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint name="waist_joint" type="revolute">
+        <origin xyz="0.0 0.0 0.057" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="waist_link"/>
+        <axis xyz="0.0 0.0 1.0"/>
+        <limit lower="${waist_lower_limit}" upper="${waist_upper_limit}" effort="2.0" velocity="2.0"/>
+    </joint>
+
+    <link name="waist_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/waist_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint name="shoulder_joint" type="revolute">
+        <origin xyz="0.0 0.014 0.071" rpy="0.0 0.0 0.0"/>
+        <parent link="waist_link"/>
+        <child link="shoulder_link"/>
+        <axis xyz="1.0 0.0 0.0"/>
+        <limit lower="${shoulder_lower_limit}" upper="${shoulder_upper_limit}" effort="2.0" velocity="2.0"/>
+    </joint>
+
+    <link name="shoulder_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/shoulder_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint name="forearm_joint" type="revolute">
+        <origin xyz="0.0 0.117 0.0029" rpy="0.0 0.0 0.0"/>
+        <parent link="shoulder_link"/>
+        <child link="forearm_link"/>
+        <axis xyz="1.0 0.0 0.0"/>
+        <limit lower="${forearm_lower_limit}" upper="${forearm_upper_limit}" effort="2.0" velocity="2.0"/>
+    </joint>
+
+    <link name="forearm_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/forearm_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint name="wrist_joint" type="revolute">
+        <origin xyz="-0.0113 0.0928 0.0023" rpy="0.0 0.0 0.0"/>
+        <parent link="forearm_link"/>
+        <child link="wrist_link"/>
+        <axis xyz="0.0 1.0 0.0"/>
+        <limit lower="${wrist_lower_limit}" upper="${wrist_upper_limit}" effort="2.0" velocity="2.0"/>
+    </joint>
+
+    <link name="wrist_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/wrist_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint name="palm_joint" type="revolute">
+        <origin xyz="0.0142 0.033 0.0012" rpy="0.0 0.0 0.0"/>
+        <parent link="wrist_link"/>
+        <child link="palm_link"/>
+        <axis xyz="1.0 0.0 0.0"/>
+        <limit lower="${palm_lower_limit}" upper="${palm_upper_limit}" effort="2.0" velocity="2.0"/>
+    </joint>
+
+    <link name="palm_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/palm_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint name="gripper_joint" type="revolute">
+        <origin xyz="0.003 0.0385 0.0035" rpy="0.0 0.0 0.0"/>
+        <parent link="palm_link"/>
+        <child link="right_finger_base_link"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+        <limit lower="${gripper_lower_limit}" upper="${shoulder_upper_limit}" effort="2.0" velocity="2.0"/>
+    </joint>
+
+    <link name="right_finger_base_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/right_finger_base_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint name="palm_left_finger_base_joint" type="revolute">
+        <origin xyz="-0.017 0.0385 0.0035" rpy="0.0 0.0 0.0"/>
+        <parent link="palm_link"/>
+        <child link="left_finger_base_link"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <mimic joint="gripper_joint" multiplier="-1" offset="0"/>
+    </joint>
+
+    <link name="left_finger_base_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/left_finger_base_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
     
-<!-- The base link (wooden frame and the metalic support)-->
-<link name="base_link">
-    <xacro:default_inertial mass="2.0"/>
-    <visual>
-        <origin xyz="0.0 0.0 0.0225" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.19 0.16 0.045"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0 0.0 0.00225" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.19 0.16 0.045"/>
-        </geometry>
-    </collision>
+    <joint name="right_finger_joint" type="revolute">
+        <origin xyz="-0.0001 0.0587 0.01" rpy="0.0 0.0 0.0"/>
+        <parent link="palm_link"/>
+        <child link="right_finger_link"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <mimic joint="gripper_joint" multiplier="1.2" offset="0"/>
+    </joint>
 
-     <visual>
-        <origin xyz="-0.007 0.0085 0.063" rpy="0.0 0.0 0.0"/>
+    <link name="right_finger_link">
+        <visual>
         <geometry>
-            <box size="0.07 0.06 0.036"/>
+            <mesh filename="package://arthrobot_description/meshes/right_finger_link.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-    </visual>
-    <collision>
-        <origin xyz="-0.007 0.0085 0.063" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.07 0.06 0.036"/>
-        </geometry>
-    </collision>
-</link>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
 
-<!-- Joint that attaches the base with motor 1-->
-<joint name="base_motor_link" type="fixed">
-    <origin xyz="-0.007 0.0085 0.081" rpy="0.0 0.0 0.0"/>
-    <parent link="base_link"/>
-    <child link="motor1_link"/>
-</joint>
+    <joint name="left_finger_joint" type="revolute">
+        <origin xyz="-0.014 0.0587 0.01" rpy="0.0 0.0 0.0"/>
+        <parent link="palm_link"/>
+        <child link="left_finger_link"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <mimic joint="palm_left_finger_base_joint" multiplier="1.2" offset="0"/>
+    </joint>
 
-<!--Motor 1 link-->
-<link name="motor1_link">
-    <xacro:default_inertial mass="0.3"/>
-    <visual>
-        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
+    <link name="left_finger_link">
+        <visual>
         <geometry>
-            <box size="0.04 0.022 0.01"/>
+            <mesh filename="package://arthrobot_description/meshes/left_finger_link.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0 0.0 0.005" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.04 0.022 0.01"/>
-        </geometry>
-    </collision>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
 
-    <visual>
-        <origin xyz="-0.01 0.0 0.014" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.006" length="0.008"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="-0.01 0.0 0.004" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.006" length="0.008"/>
-        </geometry>
-    </collision>
-</link>
+    <joint name="left_fingertip_joint" type="revolute">
+        <origin xyz="-0.007 0.035 0.008" rpy="0.0 0.0 0.0"/>
+        <parent link="left_finger_base_link"/>
+        <child link="left_fingertip_link"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <mimic joint="gripper_joint" multiplier="1" offset="0"/>
+    </joint>
 
-<!--Joint between motor 1 and motor 2-->
-<joint name="joint_1" type="revolute">
-    <origin xyz="-0.01 0.0 0.018" rpy="0.0 0.0 0.0"/>
-    <parent link="motor1_link"/>
-    <child link="motor2_link"/>
-    <axis xyz="0.0 0.0 1.0"/>
-    <limit lower="${motor1_lower_limit}" upper="${motor1_upper_limit}" 
-              effort="${link1_effort}" velocity="${link1_velocity}"/>
-</joint>
+    <link name="left_fingertip_link">
+        <visual>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/left_fingertip_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
 
-<!--Motor 2 link-->
-<link name="motor2_link">
-    <xacro:default_inertial mass="0.2"/>
-    <visual>
-        <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.057 0.06 0.025"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0 0.01 0.0125" rpy="0.0 0.0 0.0" />
-        <geometry>
-            <box size="0.057 0.06 0.025"/>
-        </geometry>
-    </collision>
-</link>
+    <joint name="right_fingertip_joint" type="revolute">
+        <origin xyz="0.01 0.035 0.008" rpy="0.0 0.0 0.0"/>
+        <parent link="right_finger_base_link"/>
+        <child link="right_fingertip_link"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <mimic joint="gripper_joint" multiplier="-1" offset="0"/>
+    </joint>
 
-<!--Joint between motor 2 and bar 1-->
-<joint name="joint_2" type="revolute">
-    <origin xyz="-0.0285 0.02 0.0125" rpy="0.0 0.0 0.0"/>
-    <parent link="motor2_link"/>
-    <child link="bar1_link"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="${motor2_lower_limit}" upper="${motor2_upper_limit}" 
-              effort="${link2_effort}" velocity="${link2_velocity}"/>
-</joint>
-
-<!--bar 1 link-->
-<link name="bar1_link">
-    <xacro:default_inertial mass="0.1"/>
-    <visual>
-        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
+    <link name="right_fingertip_link">
+        <visual>
         <geometry>
-            <box size="0.002 0.025 0.105"/>
+            <mesh filename="package://arthrobot_description/meshes/right_fingertip_link.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-    </visual>
-    <collision>
-        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.002 0.025 0.105"/>
-        </geometry>
-    </collision>
-
-    <visual>
-        <origin xyz="0.058 0.0 0.0525" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.002 0.025 0.105"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="-0.001 0.0 0.0525" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.002 0.025 0.105"/>
-        </geometry>
-    </collision>
-</link>
-
-<!--joint between bar 1 and bar 2-->
-<joint name="joint_3" type="revolute">
-    <origin xyz="-0.002 0.0 0.105" rpy="0.0 0.0 0.0"/>
-    <parent link="bar1_link"/>
-    <child link="bar2_link"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="${motor3_lower_limit}" upper="${motor3_upper_limit}" 
-              effort="${link3_effort}" velocity="${link3_velocity}"/>
-</joint>
-
-<!--bar 2 link-->
-<link name="bar2_link">
-    <xacro:default_inertial mass="0.1"/>
-    <visual>
-        <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.002 0.025 0.098"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="-0.001 0.0 0.049" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.002 0.025 0.098"/>
-        </geometry>
-    </collision>
-
-    <visual>
-        <origin xyz="0.062 0.0 0.049" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.002 0.025 0.098"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.062 0.0 0.049" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.002 0.025 0.098"/>
-        </geometry>
-    </collision>
-</link>
-
-<!--joint bar 2 motor 3-->
-<joint name="joint_4" type="revolute">
-    <origin xyz="0.002 0.0 0.098" rpy="0.0 0.0 0.0"/>
-    <parent link="bar2_link"/>
-    <child link="motor3_link"/>
-    <axis xyz="-1.0 0.0 0.0"/>
-    <limit lower="${motor4_lower_limit}" upper="${motor4_upper_limit}" 
-              effort="${link4_effort}" velocity="${link4_velocity}"/>
-</joint>
-
-<!--motor 3 link-->
-<link name="motor3_link">
-    <xacro:default_inertial mass="0.1"/>
-    <visual>
-        <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.056 0.06 0.025"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0285 0.01 0.0" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.056 0.06 0.025"/>
-        </geometry>
-    </collision>
-</link>
-
-<!--motor 3 motor 4 joint-->
-<joint name="motor3_motor4_joint" type="fixed">
-    <origin xyz="0.0285 0.02 0.0125" rpy="0.0 0.0 0.0"/>
-    <parent link="motor3_link"/>
-    <child link="motor4_link"/>
-</joint>
-
-<!-- motor 4 link-->
-<link name="motor4_link">
-    <xacro:default_inertial mass="0.1"/>
-    <visual>
-        <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.042 0.022 0.046"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0 0.0 0.023" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <box size="0.042 0.022 0.046"/>
-        </geometry>
-    </collision>
-</link>
-
-<!--Joint motor 4 ee link-->
-<joint name="joint_5" type="revolute">
-    <origin xyz="-0.01 0.0 0.046" rpy="0.0 0.0 0.0"/>
-    <parent link="motor4_link"/>
-    <child link="motor5_link"/>
-    <axis xyz="0.0 0.0 1.0"/>
-    <limit lower="${motor5_lower_limit}" upper="${motor5_upper_limit}" 
-              effort="${link5_effort}" velocity="${link5_velocity}"/>
-</joint>
-
-
-<!-- motor 5 link -->
-<link name="motor5_link">
-    <xacro:default_inertial mass="0.05"/>
-    <visual>
-        <origin xyz="0.0 0.0725 0.012" rpy="-1.57 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.012" length="0.145"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0 0.0725 0.012" rpy="-1.57 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.012" length="0.145"/>
-        </geometry>
-    </collision>
-</link>
-
-<!-- End effector support joint-->
-<joint name="joint_ee_support" type="fixed">
-    <origin xyz="0.0 0.145 0.012" rpy="0.0 0.0 0.0"/>
-    <parent link="motor5_link"/>
-    <child link="ee_link_support"/>
-</joint>
-
-<!-- End effector support link -->
-<link name="ee_link_support">
-    <xacro:default_inertial mass="0.05"/>
-    <visual>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.012" length="0.012"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.012" length="0.012"/>
-        </geometry>
-    </collision>
-</link>
-
-<!-- End effector joint-->
-<joint name="joint_ee" type="fixed">
-    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-    <parent link="ee_link_support"/>
-    <child link="ee_link"/>
-</joint>
-
-<!-- End effector link -->
-<link name="ee_link">
-    <xacro:default_inertial mass="0.05"/>
-    <visual>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.012" length="0.012"/>
-        </geometry>
-    </visual>
-    <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <geometry>
-            <cylinder radius="0.012" length="0.012"/>
-        </geometry>
-    </collision>
-</link>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <material name="gray"/>
+        </visual>
+    </link>
 
 </robot>

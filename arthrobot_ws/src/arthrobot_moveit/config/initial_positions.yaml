@@ -1,6 +1,6 @@
 initial_position:
-  joint_1: 0
-  joint_2: 0
-  joint_3: 0
-  joint_4: 0
-  joint_5: 0
+  waist_joint: 0
+  shoulder_joint: 0
+  forearm_joint: 0
+  wrist_joint: 0
+  palm_joint: 0

@@ -64,7 +64,7 @@ class ArthrobotServoClient(Node):
 
     def setJointGoal(self, joint, direction):
         msg = JointJog()
-        joint_names = {1: "joint_1", 2: "joint_2", 3: "joint_3", 4: "joint_4", 5: "joint_5"}
+        joint_names = {1: "waist_joint", 2: "shoulder_joint", 3: "forearm_joint", 4: "wrist_joint", 5: "palm_joint"}
 
         if joint in joint_names:
             msg.joint_names.append(joint_names[joint])
@@ -73,7 +73,7 @@ class ArthrobotServoClient(Node):
         
         msg.velocities.append(1.0 * direction)
         msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = "ee_link"
+        msg.header.frame_id = "right_finger_base_link"
         self.joint_pub.publish(msg)
 
     def setCartesianGoal(self, command):
@@ -100,7 +100,7 @@ class ArthrobotServoClient(Node):
             msg.twist.linear.y = -linear_velocity
 
         msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = "base_link"
+        msg.header.frame_id = "right_finger_base_link"
         self.cartesian_pub.publish(msg)
 
     def shutdown_hook(self, signum=None, frame=None):

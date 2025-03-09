@@ -1,5 +1,6 @@
-float32 joint1_pos
-float32 joint2_pos
-float32 joint3_pos
-float32 joint4_pos
-float32 joint5_pos
+float32 waist_pos
+float32 shoulder_pos
+float32 forearm_pos
+float32 wrist_pos
+float32 palm_pos
+float32 gripper_pos
