@@ -1,10 +1,9 @@
 # ArthroBot - 5DOF Desktop Robotic Arm
 
 ## Overview
-Welcome to ArthroBot, an innovative 5-degree-of-freedom (5-DOF) desktop robotic arm powered by ROS2 and MoveIt. ArthroBot leverages cutting-edge advancements in robotics and manipulator technology to seamlessly compute kinematics, generate collision-free paths, and deliver precise control over its end effector (which can be customized for various applications).
+Welcome to ArthroBot, an innovative 6-degree-of-freedom (5+1-DOF) desktop robotic arm powered by ROS2 and MoveIt. ArthroBot leverages cutting-edge advancements in robotics and manipulator technology to seamlessly compute kinematics, generate collision-free paths, and deliver precise control over its end effector (which can be customized for various applications).
 
-![image](https://github.com/Fadi-Eid/ArthroBot/assets/113466842/cece70cd-616e-4284-b222-fd2458484266)
-
+![image](https://github.com/user-attachments/assets/6aa054a5-7137-414c-8ad8-8b1e9e9f9500)
 
 ## Mission
 ArthroBot sets out to revolutionize the world of robotics with its compact, versatile, and programmable design. This robotic arm finds utility across a spectrum of domains:
