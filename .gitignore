@@ -1,3 +1,5 @@
 /arthrobot_ws/build
 /arthrobot_ws/install
 /arthrobot_ws/log
+
+arthrobot_ws/.vscode/
