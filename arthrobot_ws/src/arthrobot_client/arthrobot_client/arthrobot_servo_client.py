@@ -79,8 +79,8 @@ class ArthrobotServoClient(Node):
     def setCartesianGoal(self, command):
         msg = TwistStamped()
         
-        linear_velocity = 1.0 / 2
-        angular_velocity = 1.0 / 2
+        linear_velocity = 1.0 / 3
+        angular_velocity = 1.0
 
         if command == 1:  # move in the direction of +x
             msg.twist.linear.x = linear_velocity
