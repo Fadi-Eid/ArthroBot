@@ -15,8 +15,8 @@ except Exception as e:
 
 def send_command(val):
     """Send the new slider values to the Arduino as a comma-separated string"""
-    msg = "{:.2f},{:.2f},{:.2f},{:.2f},{:.2f}\n".format(
-        scale1.get()+90, scale2.get()+90, scale3.get()+90, scale4.get()+90, scale5.get()+90
+    msg = "{:.2f},{:.2f},{:.2f},{:.2f},{:.2f},{:.2f}\n".format(
+        scale1.get()+90, scale2.get()+90, scale3.get()+90, scale4.get()+90, scale5.get()+90, scale6.get()+90
     )
     try:
         s.write(msg.encode())
@@ -28,21 +28,24 @@ root.geometry("500x700")
 root.title("Servo Control GUI")
 
 
-scale1 = Scale(root, label="Joint 1", from_=-90, to=90, orient=HORIZONTAL, length=400, command=send_command)
+scale1 = Scale(root, label="Joint 1", from_=-100, to=100, orient=HORIZONTAL, length=400, command=send_command)
 scale1.pack()
 scale1.set(0)
-scale2 = Scale(root, label="Joint 2", from_=-90, to=90, orient=HORIZONTAL, length=400, command=send_command)
+scale2 = Scale(root, label="Joint 2", from_=-100, to=100, orient=HORIZONTAL, length=400, command=send_command)
 scale2.pack()
 scale2.set(0)
-scale3 = Scale(root, label="Joint 3", from_=-90, to=90, orient=HORIZONTAL, length=400, command=send_command)
+scale3 = Scale(root, label="Joint 3", from_=-100, to=100, orient=HORIZONTAL, length=400, command=send_command)
 scale3.pack()
 scale3.set(0)
-scale4 = Scale(root, label="Joint 4", from_=-90, to=90, orient=HORIZONTAL, length=400, command=send_command)
+scale4 = Scale(root, label="Joint 4", from_=-100, to=100, orient=HORIZONTAL, length=400, command=send_command)
 scale4.pack()
 scale4.set(0)
 scale5 = Scale(root, label="Joint 5", from_=-90, to=90, orient=HORIZONTAL, length=400, command=send_command)
 scale5.pack()
 scale5.set(0)
+scale6 = Scale(root, label="Joint 6", from_=0, to=100, orient=HORIZONTAL, length=400, command=send_command)
+scale6.pack()
+scale6.set(0)
 
 root.mainloop()
 

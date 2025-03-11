@@ -4,12 +4,12 @@
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
-#define NUM_SERVOS 5  // Adjust according to the number of joints used
+#define NUM_SERVOS 6  // Adjust according to the number of joints used
 #define SERVO_MIN  102 // Minimum pulse length count
 #define SERVO_MAX  550 // Maximum pulse length count
 #define FREQ 50
 
-int servo_pins[NUM_SERVOS] = {0, 1, 2, 3, 4};
+int servo_pins[NUM_SERVOS] = {0, 1, 2, 3, 4, 5};
 
 // Map function to convert angles to PWM values
 int angleToPulse(float angle) {

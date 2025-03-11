@@ -3,10 +3,10 @@
 
     <ros2_control name="ArthrobotHardware" type="system">
         <xacro:property name="PI" value="3.14159265359" />
-        <xacro:property name="waist_upper_limit"  value="${PI/2}"/>
-        <xacro:property name="waist_lower_limit"  value="-${PI/2}"/>
-        <xacro:property name="shoulder_upper_limit"  value="${PI/2}"/>
-        <xacro:property name="shoulder_lower_limit"  value="-${PI/2}"/>
+        <xacro:property name="waist_upper_limit"  value="1.7453"/>
+        <xacro:property name="waist_lower_limit"  value="-1.7453"/>
+        <xacro:property name="shoulder_upper_limit"  value="1.7453"/>
+        <xacro:property name="shoulder_lower_limit"  value="-1.693"/>
         <xacro:property name="forearm_upper_limit"  value="${PI/2}"/>
         <xacro:property name="forearm_lower_limit"  value="-${PI/2}"/>
         <xacro:property name="wrist_upper_limit"  value="${PI/2}"/>

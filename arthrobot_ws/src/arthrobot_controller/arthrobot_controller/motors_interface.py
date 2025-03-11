@@ -65,7 +65,7 @@ class MotorsInterface(Node):
     def motor_commands_callback(self, msg):
         joint1_cmd = msg.waist_pos * (57.2957) + 90
         joint2_cmd = msg.shoulder_pos * (57.2957) + 90
-        joint3_cmd = msg.forearm_pos * (57.2957) + 90
+        joint3_cmd = -msg.forearm_pos * (57.2957) + 90
         joint4_cmd = msg.wrist_pos * (57.2957) + 90
         joint5_cmd = msg.palm_pos * (57.2957) + 90
         joint6_cmd = msg.gripper_pos * (57.2957) + 90

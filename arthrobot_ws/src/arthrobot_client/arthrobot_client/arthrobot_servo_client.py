@@ -73,7 +73,7 @@ class ArthrobotServoClient(Node):
         
         msg.velocities.append(1.0 * direction)
         msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = "right_finger_base_link"
+        msg.header.frame_id = "base_link"
         self.joint_pub.publish(msg)
 
     def setCartesianGoal(self, command):
@@ -100,7 +100,7 @@ class ArthrobotServoClient(Node):
             msg.twist.linear.y = -linear_velocity
 
         msg.header.stamp = self.get_clock().now().to_msg()
-        msg.header.frame_id = "right_finger_base_link"
+        msg.header.frame_id = "base_link"
         self.cartesian_pub.publish(msg)
 
     def shutdown_hook(self, signum=None, frame=None):

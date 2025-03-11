@@ -13,14 +13,14 @@
     </material>
 
     <xacro:property name="PI" value="3.14159265359" />
-    <xacro:property name="waist_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="waist_lower_limit"  value="-${PI/2}"/>
-    <xacro:property name="shoulder_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="shoulder_lower_limit"  value="-${PI/2}"/>
-    <xacro:property name="forearm_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="forearm_lower_limit"  value="-${PI/2}"/>
-    <xacro:property name="wrist_upper_limit"  value="${PI/2}"/>
-    <xacro:property name="wrist_lower_limit"  value="-${PI/2}"/>
+    <xacro:property name="waist_upper_limit"  value="1.7453"/>
+    <xacro:property name="waist_lower_limit"  value="-1.7453"/>
+    <xacro:property name="shoulder_upper_limit"  value="1.7453"/>
+    <xacro:property name="shoulder_lower_limit"  value="-1.693"/>
+    <xacro:property name="forearm_upper_limit"  value="1.7453"/>
+    <xacro:property name="forearm_lower_limit"  value="-1.7453"/>
+    <xacro:property name="wrist_upper_limit"  value="1.7453"/>
+    <xacro:property name="wrist_lower_limit"  value="-1.7453"/>
     <xacro:property name="palm_upper_limit"  value="${PI/2}"/>
     <xacro:property name="palm_lower_limit"  value="-${PI/2}"/>
     <xacro:property name="gripper_upper_limit"  value="${PI/2}"/>
@@ -51,7 +51,7 @@
         <geometry>
             <mesh filename="package://arthrobot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
         </geometry>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <origin rpy="0.0 0.0 -0.25" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
     </link>
@@ -75,7 +75,7 @@
     </link>
 
     <joint name="shoulder_joint" type="revolute">
-        <origin xyz="0.0 0.014 0.071" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0 0.014 0.071" rpy="1.45 0.0 0.0"/>
         <parent link="waist_link"/>
         <child link="shoulder_link"/>
         <axis xyz="1.0 0.0 0.0"/>
