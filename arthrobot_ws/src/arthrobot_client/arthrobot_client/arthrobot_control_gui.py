@@ -61,7 +61,11 @@ class ArthrobotControlGUI:
             btn.bind('<ButtonPress-1>', lambda e, c=cmd: c())
             btn.bind('<ButtonRelease-1>', lambda e: self.stop_motion())
 
+<<<<<<< HEAD
         # responsive
+=======
+        # Make buttons responsive
+>>>>>>> origin/main
         for i in range(4):
             cartesian_frame.columnconfigure(i, weight=1)
 
@@ -75,6 +79,7 @@ class ArthrobotControlGUI:
         # self.vertical_slider.pack(padx=10, pady=10)
         # self.vertical_slider.set(0)
 
+<<<<<<< HEAD
         # Swich controllers
         switch_frame = tk.Frame(root)
         switch_frame.grid(row=3, column=0, columnspan=4, pady=15)  # Separate row, centered horizontally
@@ -103,6 +108,10 @@ class ArthrobotControlGUI:
             self.node.switch_controller("arthrobot_servo_controller", "arthrobot_controller")
         self.servo_controller = not self.servo_controller
         
+=======
+############################## Callback functions ###########################################################
+
+>>>>>>> origin/main
     def update_joint_goal(self, joint, velocity):
         """Callback to update the joint velocity from the slider."""
         self.joint_directions[joint] = velocity
@@ -115,7 +124,11 @@ class ArthrobotControlGUI:
             for joint, velocity in self.joint_directions.items():
                 if velocity != 0:
                     self.node.setJointGoal(joint, velocity)
+<<<<<<< HEAD
             # self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.001))
+=======
+            self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.01))
+>>>>>>> origin/main
 
 
     def start_cartesian(self, command):
@@ -126,7 +139,11 @@ class ArthrobotControlGUI:
     def send_cartesian_command(self):
         while self.running:
             self.node.setCartesianGoal(self.current_command)
+<<<<<<< HEAD
             # self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.001))
+=======
+            self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.01))
+>>>>>>> origin/main
 
     def stop_motion(self):
         self.running = False
