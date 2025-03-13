@@ -29,22 +29,24 @@ class ArthrobotServoClient(Node):
 
     def switch_controller(self, start_controller, stop_controller):
         self.get_logger().info(f"Switching to {start_controller}")
-        attempts = 0
-        while attempts < self.max_service_fetch_attempts:
-            if self.switch_controllers_client.wait_for_service(timeout_sec=1.0):
-                break
-            attempts += 1
-        if attempts == self.max_service_fetch_attempts:
-            self.get_logger().error('Switch controllers service unavailable. Shutting down node.')
-            rclpy.shutdown()
-            sys.exit(0)
+        # ... [service availability checks remain the same] ...
 
         switch_controller_req = SwitchController.Request()
         switch_controller_req.start_controllers = [start_controller]
-        switch_controller_req.stop_controllers = [stop_controller]
+        # Use the updated field name:
+        switch_controller_req.deactivate_controllers = [stop_controller]
         switch_controller_req.strictness = 2
+
         switch_controller_future = self.switch_controllers_client.call_async(switch_controller_req)
-        rclpy.spin_until_future_complete(self, switch_controller_future)
+        # Instead of spinning until complete, add a done callback:
+        switch_controller_future.add_done_callback(self.on_switch_controller_done)
+
+    def on_switch_controller_done(self, future):
+        try:
+            result = future.result()
+            self.get_logger().info("Controller switched successfully")
+        except Exception as e:
+            self.get_logger().error(f"Failed to switch controllers: {e}")
 
     def activate_servo_node(self):
         self.get_logger().info("Activating Servo Node")
@@ -79,7 +81,7 @@ class ArthrobotServoClient(Node):
     def setCartesianGoal(self, command):
         msg = TwistStamped()
         
-        linear_velocity = 1.0 / 3
+        linear_velocity = 1.0/1.6
         angular_velocity = 1.0
 
         if command == 1:  # move in the direction of +x

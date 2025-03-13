@@ -8,13 +8,13 @@ use_gazebo: false # Whether the robot is started in a Gazebo simulation environm
 command_in_type: "unitless" # "unitless"> in the range [-1:1], as if from joystick. "speed_units"> cmds are in m/s and rad/s
 scale:
   # Scale parameters are only used if command_in_type=="unitless"
-  linear: 0.3  # Max linear velocity. Meters per publish_period. Unit is [m/s]. Only used for Cartesian commands.
-  rotational:  1.0 # Max angular velocity. Rads per publish_period. Unit is [rad/s]. Only used for Cartesian commands.
+  linear: 1.0 # Max linear velocity. Meters per publish_period. Unit is [m/s]. Only used for Cartesian commands.
+  rotational:  2.0 # Max angular velocity. Rads per publish_period. Unit is [rad/s]. Only used for Cartesian commands.
   # Max joint angular/linear velocity. Rads or Meters per publish period. Only used for joint commands on joint_command_in_topic.
-  joint: 1.0
+  joint: 2.0
 
 ## Properties of outgoing commands
-publish_period: 0.0166  # 1/Nominal publish rate [seconds]
+publish_period: 0.02  # 1/Nominal publish rate [seconds]
 low_latency_mode: false  # Set this to true to publish as soon as an incoming Twist command is received (publish_period is ignored)
 
 # What type of topic does your robot driver expect?
@@ -27,7 +27,7 @@ publish_joint_velocities: false
 publish_joint_accelerations: false
 
 ## Plugins for smoothing outgoing commands
-#smoothing_filter_plugin_name: "online_signal_smoothing::ButterworthFilterPlugin"
+smoothing_filter_plugin_name: "online_signal_smoothing::ButterworthFilterPlugin"
 
 ## MoveIt properties
 move_group_name:  arthrobot_arm  # Often 'manipulator' or 'arm'
@@ -44,8 +44,8 @@ incoming_command_timeout:  0.2  # Stop servoing if X seconds elapse without a ne
 num_outgoing_halt_msgs_to_publish: 4
 
 ## Configure handling of singularities and joint limits
-lower_singularity_threshold:  100.0  # Start decelerating when the condition number hits this (close to singularity)
-hard_stop_singularity_threshold: 120.0 # Stop when the condition number hits this
+lower_singularity_threshold:  50.0  # Start decelerating when the condition number hits this (close to singularity)
+hard_stop_singularity_threshold: 60.0 # Stop when the condition number hits this
 joint_limit_margin: 0.005 # added as a buffer to joint limits [radians]. If moving quickly, make this larger.
 
 ## Topic names

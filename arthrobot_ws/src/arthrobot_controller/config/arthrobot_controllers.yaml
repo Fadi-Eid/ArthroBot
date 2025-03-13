@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 60 # command and state interface reading frequency in Hz
+    update_rate: 50 # command and state interface reading frequency in Hz
     use_sim_time: false
 
     arthrobot_controller:

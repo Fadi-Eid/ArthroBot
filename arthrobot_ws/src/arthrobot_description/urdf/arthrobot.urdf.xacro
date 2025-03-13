@@ -146,6 +146,25 @@
         </visual>
     </link>
 
+    <!-- Extra joint for the interactive marker -->
+    <joint name="gripper_support_joint" type="fixed"> 
+        <origin xyz="0.0 0.1 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="palm_link"/>
+        <child link="gripper_support"/>
+    </joint>
+
+    <link name="gripper_support">
+    <visual>
+        <!-- small visual to mark the new link -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.005 0.005 0.005"/>
+        </geometry>
+        </visual>
+    </link>
+
+
+
     <joint name="gripper_joint" type="revolute">
         <origin xyz="0.003 0.0385 0.0035" rpy="0.0 0.0 0.0"/>
         <parent link="palm_link"/>
