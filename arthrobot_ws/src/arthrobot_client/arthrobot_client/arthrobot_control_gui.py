@@ -115,7 +115,7 @@ class ArthrobotControlGUI:
             for joint, velocity in self.joint_directions.items():
                 if velocity != 0:
                     self.node.setJointGoal(joint, velocity)
-            # self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.001))
+            self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.2))
 
 
     def start_cartesian(self, command):
@@ -126,7 +126,7 @@ class ArthrobotControlGUI:
     def send_cartesian_command(self):
         while self.running:
             self.node.setCartesianGoal(self.current_command)
-            # self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.001))
+            self.node.get_clock().sleep_for(rclpy.duration.Duration(seconds=0.2))
 
     def stop_motion(self):
         self.running = False

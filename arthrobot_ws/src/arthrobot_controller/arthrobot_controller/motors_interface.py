@@ -28,7 +28,7 @@ class MotorsInterface(Node):
 
         self.motor_commands = self.create_subscription(ArthrobotPositionCommand, "arthrobot_hardware_commands", self.motor_commands_callback, 10)
         self.motor_feedback = self.create_publisher(ArthrobotPositionCommand, "arthrobot_hardware_feedback", 10)
-        self.timer = self.create_timer(0.02, self.timer_callback)
+        #self.timer = self.create_timer(0.02, self.timer_callback)
         
         self.get_logger().info("Motors Interface Node Started")
 

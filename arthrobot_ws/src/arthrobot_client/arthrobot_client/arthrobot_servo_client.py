@@ -78,28 +78,17 @@ class ArthrobotServoClient(Node):
         msg.header.frame_id = "base_link"
         self.joint_pub.publish(msg)
 
-    def setCartesianGoal(self, command):
+    def setCartesianGoal(self, command, vel):
         msg = TwistStamped()
-        
-        linear_velocity = 1.0/1.6
-        angular_velocity = 1.0
 
         if command == 1:  # move in the direction of +x
-            msg.twist.linear.x = linear_velocity
+            msg.twist.linear.x = vel
         elif command == 2:  # move in the direction of -x
-            msg.twist.linear.x = -linear_velocity
+            msg.twist.linear.y = vel
         elif command == 3:  # move in the direction of +z
-            msg.twist.linear.z = linear_velocity
+            msg.twist.linear.z = vel
         elif command == 4:  # move in the direction of -z
-            msg.twist.linear.z = -linear_velocity
-        elif command == 5:  # rotate around +y
-            msg.twist.angular.x = angular_velocity
-        elif command == 6:  # rotate around -y
-            msg.twist.angular.x = -angular_velocity
-        elif command == 7:  # move in the direction of +y
-            msg.twist.linear.y = linear_velocity
-        elif command == 8:  # move in the direction of -y
-            msg.twist.linear.y = -linear_velocity
+            msg.twist.angular.x = vel
 
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.header.frame_id = "base_link"
