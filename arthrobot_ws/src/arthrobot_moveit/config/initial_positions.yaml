@@ -4,3 +4,4 @@ initial_position:
   forearm_joint: 0
   wrist_joint: 0
   palm_joint: 0
+  gripper_joint: 1.7

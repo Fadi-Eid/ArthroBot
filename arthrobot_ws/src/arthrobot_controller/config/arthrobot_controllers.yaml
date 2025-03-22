@@ -6,6 +6,9 @@ controller_manager:
     arthrobot_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
+    arthrobot_gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
     arthrobot_servo_controller:
       type: position_controllers/JointGroupPositionController
 
@@ -22,6 +25,17 @@ arthrobot_controller:
       - forearm_joint
       - wrist_joint
       - palm_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    allow_integration_in_goal_trajectories: true
+    open_loop_control: false
+
+arthrobot_gripper_controller:
+  ros__parameters:
+    joints:
+      - gripper_joint
     command_interfaces:
       - position
     state_interfaces:
