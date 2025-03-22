@@ -4,6 +4,8 @@ from threading import Thread
 import rclpy
 from arthrobot_client.arthrobot_servo_client import ArthrobotServoClient
 
+# NOT YET UPDATED
+
 class ArthrobotControlGUI:
     def __init__(self, root, node):
         self.root = root

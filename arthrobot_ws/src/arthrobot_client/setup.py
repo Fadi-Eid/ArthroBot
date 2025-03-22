@@ -8,7 +8,7 @@ setup(
     packages=find_packages(exclude=['test']),
     py_modules=[
         'arthrobot_client.arthrobot_servo_client', 
-        'arthrobot_client.arthrobot_control_gui',
+        # 'arthrobot_client.arthrobot_control_gui',
         'arthrobot_client.arthrobot_control_joystick',
     ],
     data_files=[
@@ -26,7 +26,7 @@ setup(
     entry_points={
         'console_scripts': [
             'arthrobot_servo_client = arthrobot_client.arthrobot_servo_client:main',
-            'arthrobot_control_gui = arthrobot_client.arthrobot_control_gui:main',
+            # 'arthrobot_control_gui = arthrobot_client.arthrobot_control_gui:main',
             'arthrobot_control_joystick = arthrobot_client.arthrobot_control_joystick:main'
         ],
     },

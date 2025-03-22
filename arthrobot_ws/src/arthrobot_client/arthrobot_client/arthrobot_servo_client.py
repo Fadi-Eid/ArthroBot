@@ -11,6 +11,10 @@ class ArthrobotServoClient(Node):
         super().__init__("arthrobot_servo_client_node")
         signal.signal(signal.SIGINT, self.shutdown_hook)
 
+        self.cartesian_scale = 0.7
+        self.rotational_scale = 1.0
+        self.joint_scale = 1.0
+
         self.direction = 1
         self.max_service_fetch_attempts = 2
 
@@ -73,7 +77,7 @@ class ArthrobotServoClient(Node):
         else:
             return
         
-        msg.velocities.append(1.0 * direction)
+        msg.velocities.append(self.joint_scale * direction)
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.header.frame_id = "base_link"
         self.joint_pub.publish(msg)
@@ -82,13 +86,13 @@ class ArthrobotServoClient(Node):
         msg = TwistStamped()
 
         if command == 1:  # move in the direction of +x
-            msg.twist.linear.x = vel
+            msg.twist.linear.x = vel * self.cartesian_scale
         elif command == 2:  # move in the direction of -x
-            msg.twist.linear.y = vel
+            msg.twist.linear.y = vel * self.cartesian_scale
         elif command == 3:  # move in the direction of +z
-            msg.twist.linear.z = vel
+            msg.twist.linear.z = vel * self.cartesian_scale
         elif command == 4:  # move in the direction of -z
-            msg.twist.angular.x = vel
+            msg.twist.angular.x = vel * self.rotational_scale
 
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.header.frame_id = "base_link"

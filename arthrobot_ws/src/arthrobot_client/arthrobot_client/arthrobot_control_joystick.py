@@ -1,5 +1,6 @@
 from threading import Thread
 import rclpy
+import time
 from arthrobot_client.arthrobot_servo_client import ArthrobotServoClient
 from pyPS4Controller.controller import Controller
 
@@ -7,65 +8,89 @@ class JoystickController(Controller):
     def __init__(self, node, **kwargs):
         Controller.__init__(self, **kwargs)
         self.node = node
-        self.running = False
         self.servo_controller = True
 
-        self.command_type = None
-        self.command_value = 0.0
+        self.cartesian_cmd_type = None
+        self.cartesian_cmd_value = 0.0
 
-        self.start_motion()
+        self.joint_cmd_type = None
+        self.joint_cmd_value = 0.0
 
-    # Switch between controllers 
+        self.running = True
+        self.control_thread = Thread(target=self.send_commands_loop, daemon=True)
+        self.control_thread.start()
+
+    def send_commands_loop(self):
+        while self.running:
+            if abs(self.cartesian_cmd_value) > 0.06:
+                self.node.setCartesianGoal(self.cartesian_cmd_type, self.cartesian_cmd_value)
+            if abs(self.joint_cmd_value) > 0.06:
+                self.node.setJointGoal(self.joint_cmd_type, self.joint_cmd_value)
+            time.sleep(0.125)
+
+    # Switch between controllers (position if servoing and trajectory if other)
     def on_x_press(self):
         self.switch_controller_callback()
+    
+    # TODO: call a position that is outside singularity in case arthrobot is stuck
+    def on_up_arrow_press(self):
+        pass
 
-    def on_R3_up(self, val):
-        self.command_type = 3
-        self.command_value = -((val - 260.0) / (32760.0 - 260.0) + 0.02)
-        self.start_motion()
-
-    def on_R3_down(self, val):
-        self.command_type = 3
-        self.command_value = -((val - 260.0) / (32760.0 - 260.0) - 0.02)
-        self.start_motion()
-
-    def on_R3_right(self, val):
-        self.command_type = 2
-        self.command_value = (val - 260.0) / (32760.0 - 260.0) - 0.02
-        self.start_motion()
-
-    def on_R3_left(self, val):
-        self.command_type = 2
-        self.command_value = (val - 260.0) / (32760.0 - 260.0) + 0.02
-        self.start_motion()
-
+    # TODO: Open/Close the gripper
+    def on_square_press(self):
+        pass
+    
+    # Move along the x-axis
     def on_L3_up(self, val):
-        self.command_type = 1
-        self.command_value = -((val - 260.0) / (32760.0 - 260.0) + 0.02)
-        self.start_motion()
-
+        self.cartesian_cmd_type = 1
+        self.cartesian_cmd_value = -((val - 260.0) / (32760.0 - 260.0) + 0.02)
     def on_L3_down(self, val):
-        self.command_type = 1
-        self.command_value = -((val - 260.0) / (32760.0 - 260.0) - 0.02)
-        self.start_motion()
+        self.cartesian_cmd_type = 1
+        self.cartesian_cmd_value = -((val - 260.0) / (32760.0 - 260.0) - 0.02)
+    
+    # Move along the z-axis
+    def on_R3_up(self, val):
+        self.cartesian_cmd_type = 3
+        self.cartesian_cmd_value = -((val - 260.0) / (32760.0 - 260.0) + 0.02)
+    def on_R3_down(self, val):
+        self.cartesian_cmd_type = 3
+        self.cartesian_cmd_value = -((val - 260.0) / (32760.0 - 260.0) - 0.02)
 
+    # Move along the y-axis
+    def on_R3_right(self, val):
+        self.cartesian_cmd_type = 2
+        self.cartesian_cmd_value = (val - 260.0) / (32760.0 - 260.0) - 0.02
+    def on_R3_left(self, val):
+        self.cartesian_cmd_type = 2
+        self.cartesian_cmd_value = (val - 260.0) / (32760.0 - 260.0) + 0.02
+
+    # Rotate the gripper around the x-axis
     def on_R1_press(self):
-        self.command_type = 4
-        self.command_value = -1.0
-        self.start_motion()
+        self.cartesian_cmd_type = 4
+        self.cartesian_cmd_value = -1.0
     def on_R1_release(self):
-        self.command_type = 4
-        self.command_value = 0.0
-        self.start_motion()
+        self.cartesian_cmd_type = 4
+        self.cartesian_cmd_value = 0.0
     def on_L1_press(self):
-        self.command_type = 4
-        self.command_value = 1.0
-        self.start_motion()
+        self.cartesian_cmd_type = 4
+        self.cartesian_cmd_value = 1.0
     def on_L1_release(self):
-        self.command_type = 4
-        self.command_value = 0.0
-        self.start_motion()
+        self.cartesian_cmd_type = 4
+        self.cartesian_cmd_value = 0.0
 
+    # Rotate the waist
+    def on_R2_press(self, value):
+        self.joint_cmd_type = 1
+        self.joint_cmd_value = 0.99
+    def on_L2_press(self, value):
+        self.joint_cmd_type = 1
+        self.joint_cmd_value = -0.99
+    def on_R2_release(self):
+        self.joint_cmd_type = 1
+        self.joint_cmd_value = 0.0
+    def on_L2_release(self):
+        self.joint_cmd_type = 1
+        self.joint_cmd_value = 0.0
 
     def switch_controller_callback(self):
         print("switching controllers")
@@ -75,34 +100,18 @@ class JoystickController(Controller):
             self.node.switch_controller("arthrobot_servo_controller", "arthrobot_controller")
         self.servo_controller = not self.servo_controller
 
-
-    def start_motion(self):
-        self.running = True
-        Thread(target=self.send_commands, daemon=True).start()
-
-    def send_commands(self):
-        while self.running:
-            if abs(self.command_value) > 0.1:
-                self.node.setCartesianGoal(self.command_type, self.command_value)
-            self.node.get_clock().sleep_for(rclpy.time.Duration(seconds=0.15))
-
-    def stop_motion(self):
-        self.command_value = 0.0
-        self.running = False
-
-
 def main():
 
     rclpy.init()
     node = ArthrobotServoClient()
-      # Start ROS 2 spinning in a separate thread
+    # Start ROS 2 spinning in a separate thread
     ros_thread = Thread(target=rclpy.spin, args=(node,), daemon=True)
     ros_thread.start()
-    controller = JoystickController(node, interface="/dev/input/js1", connecting_using_ds4drv=False)
-    # you can start listening before controller is paired, as long as you pair it within the timeout window
-    controller.listen(timeout=1)
+    controller = JoystickController(node, interface="/dev/input/js0", connecting_using_ds4drv=False)
+    # pair it within the timeout window
+    controller.listen(timeout=10)
 
-    # Cleanup after GUI closes
+    # Cleanup
     node.destroy_node()
     rclpy.shutdown()
 
