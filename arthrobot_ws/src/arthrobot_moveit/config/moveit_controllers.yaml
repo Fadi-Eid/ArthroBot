@@ -9,6 +9,7 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 moveit_simple_controller_manager:
   controller_names:
     - arthrobot_controller
+    - arthrobot_gripper_controller
 
   arthrobot_controller:
     action_ns: follow_joint_trajectory
@@ -27,4 +28,3 @@ moveit_simple_controller_manager:
     default: true
     joints:
       - gripper_joint
-      - palm_left_finger_base_joint

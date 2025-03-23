@@ -1,7 +1,7 @@
 initial_position:
-  waist_joint: 0
-  shoulder_joint: 0
-  forearm_joint: 0
-  wrist_joint: 0
-  palm_joint: 0
-  gripper_joint: 1.7
+  waist_joint: 0.0
+  shoulder_joint: 0.0
+  forearm_joint: 0.0
+  wrist_joint: 0.0
+  palm_joint: 0.0
+  gripper_joint: 0.0

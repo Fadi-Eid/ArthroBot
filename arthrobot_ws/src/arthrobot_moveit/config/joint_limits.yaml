@@ -20,3 +20,18 @@ joint_limits:
   gripper_joint:
     has_velocity_limits: false
     has_acceleration_limits: false
+  left_finger_joint:
+    has_velocity_limits: false
+    has_acceleration_limits: false
+  left_fingertip_joint:
+    has_velocity_limits: false
+    has_acceleration_limits: false
+  palm_left_finger_base_joint:
+    has_velocity_limits: false
+    has_acceleration_limits: false
+  right_finger_joint:
+    has_velocity_limits: false
+    has_acceleration_limits: false
+  right_fingertip_joint:
+    has_velocity_limits: false
+    has_acceleration_limits: false

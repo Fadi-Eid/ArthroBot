@@ -170,7 +170,7 @@
         <parent link="palm_link"/>
         <child link="right_finger_base_link"/>
         <axis xyz="0.0 0.0 -1.0"/>
-        <limit lower="${gripper_lower_limit}" upper="${shoulder_upper_limit}" effort="2.0" velocity="2.0"/>
+        <limit lower="${gripper_lower_limit}" upper="${gripper_upper_limit}" effort="2.0" velocity="2.0"/>
     </joint>
 
     <link name="right_finger_base_link">
@@ -188,7 +188,7 @@
         <parent link="palm_link"/>
         <child link="left_finger_base_link"/>
         <axis xyz="0.0 0.0 -1.0"/>
-        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <limit lower="-1.5708" upper="0.0" effort="2.0" velocity="2.0"/>
         <mimic joint="gripper_joint" multiplier="-1" offset="0"/>
     </joint>
 
@@ -207,7 +207,7 @@
         <parent link="palm_link"/>
         <child link="right_finger_link"/>
         <axis xyz="0.0 0.0 -1.0"/>
-        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <limit lower="0.0" upper="1.9" effort="2.0" velocity="2.0"/>
         <mimic joint="gripper_joint" multiplier="1.2" offset="0"/>
     </joint>
 
@@ -226,7 +226,7 @@
         <parent link="palm_link"/>
         <child link="left_finger_link"/>
         <axis xyz="0.0 0.0 -1.0"/>
-        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <limit lower="-1.9" upper="0.0" effort="2.0" velocity="2.0"/>
         <mimic joint="palm_left_finger_base_joint" multiplier="1.2" offset="0"/>
     </joint>
 
@@ -264,7 +264,7 @@
         <parent link="right_finger_base_link"/>
         <child link="right_fingertip_link"/>
         <axis xyz="0.0 0.0 -1.0"/>
-        <limit lower="0.0" upper="1.5708" effort="2.0" velocity="2.0"/>
+        <limit lower="-1.5708" upper="0.0" effort="2.0" velocity="2.0"/>
         <mimic joint="gripper_joint" multiplier="-1" offset="0"/>
     </joint>
 
