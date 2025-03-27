@@ -26,7 +26,7 @@ class JoystickController(Controller):
                 self.node.setCartesianGoal(self.cartesian_cmd_type, self.cartesian_cmd_value)
             if abs(self.joint_cmd_value) > 0.06:
                 self.node.setJointGoal(self.joint_cmd_type, self.joint_cmd_value)
-            time.sleep(0.125)
+            time.sleep(0.1)
 
     # Switch between controllers (position if servoing and trajectory if other)
     def on_x_press(self):

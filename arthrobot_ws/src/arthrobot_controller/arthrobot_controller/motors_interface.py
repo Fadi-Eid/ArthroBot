@@ -47,7 +47,7 @@ class MotorsInterface(Node):
         joint3_cmd = -msg.forearm_pos * (57.2957) + 90
         joint4_cmd = msg.wrist_pos * (57.2957) + 90
         joint5_cmd = msg.palm_pos * (57.2957) + 90
-        joint6_cmd = msg.gripper_pos * (57.2957) + 90
+        joint6_cmd = 180 - msg.gripper_pos * (57.2957)
 
         if not self.isSim:
              self.send_data(joint1_cmd, joint2_cmd, joint3_cmd, joint4_cmd, joint5_cmd, joint6_cmd)

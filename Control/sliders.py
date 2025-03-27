@@ -16,7 +16,7 @@ except Exception as e:
 def send_command(val):
     """Send the new slider values to the Arduino as a comma-separated string"""
     msg = "{:.2f},{:.2f},{:.2f},{:.2f},{:.2f},{:.2f}\n".format(
-        scale1.get()+90, scale2.get()+90, scale3.get()+90, scale4.get()+90, scale5.get()+90, scale6.get()+90
+        scale1.get()+90, scale2.get()+90, scale3.get()+90, scale4.get()+90, scale5.get()+90, 190-scale6.get()
     )
     try:
         s.write(msg.encode())
