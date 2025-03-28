@@ -9,6 +9,7 @@ class JoystickController(Controller):
         Controller.__init__(self, **kwargs)
         self.node = node
         self.servo_controller = True
+        self.gripper_open = False
 
         self.cartesian_cmd_type = None
         self.cartesian_cmd_value = 0.0
@@ -36,9 +37,20 @@ class JoystickController(Controller):
     def on_up_arrow_press(self):
         pass
 
-    # TODO: Open/Close the gripper
+    # Open/Close the gripper
     def on_square_press(self):
-        pass
+        if self.servo_controller is True:
+            self.switch_controller_callback()
+        if self.gripper_open is True:
+            self.node.execute_task(2)
+            self.gripper_open = False
+            time.sleep(0.3) # TODO: I think this is not best practice
+            self.switch_controller_callback()
+        else:
+            self.node.execute_task(1)
+            self.gripper_open = True
+            time.sleep(0.3)
+            self.switch_controller_callback()
     
     # Move along the x-axis
     def on_L3_up(self, val):

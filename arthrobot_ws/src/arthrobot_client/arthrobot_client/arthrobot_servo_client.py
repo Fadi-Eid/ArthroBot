@@ -4,6 +4,8 @@ from geometry_msgs.msg import TwistStamped
 from control_msgs.msg import JointJog
 from std_srvs.srv import Trigger
 from controller_manager_msgs.srv import SwitchController
+from rclpy.action import ActionClient
+from arthrobot_interfaces.action import ArthrobotTask
 import sys, signal
 
 class ArthrobotServoClient(Node):
@@ -23,6 +25,9 @@ class ArthrobotServoClient(Node):
 
         self.servo_activate_client = self.create_client(Trigger, "/servo_node/start_servo")
         self.switch_controllers_client = self.create_client(SwitchController, "/controller_manager/switch_controller")
+
+        # ArthroBot task server client
+        self.task_client = ActionClient(self, ArthrobotTask, "arthrobot_task_server")
 
         self.switch_controller("arthrobot_servo_controller", "arthrobot_controller")
         self.activate_servo_node()
@@ -97,6 +102,12 @@ class ArthrobotServoClient(Node):
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.header.frame_id = "base_link"
         self.cartesian_pub.publish(msg)
+
+    def execute_task(self, task_number : int):
+        task = ArthrobotTask.Goal()
+        task.task_number = task_number
+        self.task_client.wait_for_server()
+        return self.task_client.send_goal_async(task)
 
     def shutdown_hook(self, signum=None, frame=None):
         self.get_logger().info("Shutting down...")
