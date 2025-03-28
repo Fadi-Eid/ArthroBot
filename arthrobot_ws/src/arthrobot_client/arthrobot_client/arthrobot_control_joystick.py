@@ -47,7 +47,21 @@ class JoystickController(Controller):
     # call task to get outside singularity in case arthrobot is stuck
     def on_up_arrow_press(self):
         self.switch_controller_callback(ControllerType.TRAJECTORY)
+        self.node.execute_task(0)
+
+    # Default position
+    def on_down_arrow_press(self):
+        self.switch_controller_callback(ControllerType.TRAJECTORY)
+        self.node.execute_task(4)
+
+    def on_right_arrow_press(self):
+        self.switch_controller_callback(ControllerType.TRAJECTORY)
         self.node.execute_task(3)
+
+    
+    def on_left_arrow_press(self):
+        self.switch_controller_callback(ControllerType.TRAJECTORY)
+        self.node.execute_task(5)
 
     # Open/Close the gripper
     def on_square_press(self):
