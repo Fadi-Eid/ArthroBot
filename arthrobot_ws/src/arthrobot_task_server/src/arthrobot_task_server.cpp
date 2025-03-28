@@ -88,15 +88,15 @@ class ArthrobotTaskServerNode : public rclcpp::Node
         const moveit::core::JointModelGroup* joint_model_group;
         joint_model_group = gripper_move_group.getCurrentState()->getJointModelGroup("arthrobot_ee");
         moveit::core::RobotStatePtr current_state = gripper_move_group.getCurrentState(10);
-        std::vector<double> joint_group_positions;
-        current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
+        std::vector<double> joint_angles;
+        current_state->copyJointGroupPositions(joint_model_group, joint_angles);
 
         if(task_number == 1)
-            joint_group_positions[0] = 1.57;
+            joint_angles[0] = 1.57;
         else
-            joint_group_positions[0] = 0;
+            joint_angles[0] = 0;
 
-        gripper_move_group.setJointValueTarget(joint_group_positions);
+        gripper_move_group.setJointValueTarget(joint_angles);
         moveit::planning_interface::MoveGroupInterface::Plan plan;
         bool success = (gripper_move_group.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
         if(success){
@@ -112,7 +112,45 @@ class ArthrobotTaskServerNode : public rclcpp::Node
         result->success = true;
         goal_handle->succeed(result);
         RCLCPP_INFO(get_logger(), "<%s> task finished", gripper_task_name.c_str());
-      }     
+      }
+      else if(task_number == 3) // servoing ready position (out of singularity)
+      {
+        RCLCPP_INFO(get_logger(), "Executing <Servoing Ready Pose> task");
+        auto result = std::make_shared<arthrobot_interfaces::action::ArthrobotTask::Result>();
+
+        auto move_group_interface = moveit::planning_interface::MoveGroupInterface(shared_from_this(), "arthrobot_arm");
+        move_group_interface.setMaxVelocityScalingFactor(1);
+        move_group_interface.setMaxAccelerationScalingFactor(1);
+        const moveit::core::JointModelGroup* joint_model_group = move_group_interface.getCurrentState()->getJointModelGroup("arthrobot_arm");
+        moveit::core::RobotStatePtr current_state = move_group_interface.getCurrentState(10);
+        std::vector<double> joint_angles;
+        current_state->copyJointGroupPositions(joint_model_group, joint_angles);
+        
+        // specify joint angles destination in radians
+        joint_angles[0] = 0.0;
+        joint_angles[1] = -0.628;
+        joint_angles[2] = -1.0472;
+        joint_angles[3] = 0.0;
+        joint_angles[4] = 0.17453;
+
+        move_group_interface.setJointValueTarget(joint_angles);
+
+        moveit::planning_interface::MoveGroupInterface::Plan plan;
+        bool success = (move_group_interface.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
+        if(success){
+            move_group_interface.move();  // execute the planned trajectory
+            RCLCPP_INFO(get_logger(), "<Servoing Ready Pose> task executed successfully");
+        }
+        else
+        {
+          RCLCPP_INFO(get_logger(), "<Servoing Ready Pose> task execution failed (no plan found)");
+            return;
+        }
+        result->success = true;
+        goal_handle->succeed(result);
+        RCLCPP_INFO(get_logger(), "task succeeded");
+
+      }  
 
     }
   
