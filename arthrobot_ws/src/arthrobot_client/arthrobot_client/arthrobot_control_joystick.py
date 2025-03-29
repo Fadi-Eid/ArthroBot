@@ -16,6 +16,8 @@ class JoystickController(Controller):
         self.servo_controller = True
         self.gripper_open = False
 
+        self.collision_object = False
+
         self.cartesian_cmd_type = None
         self.cartesian_cmd_value = 0.0
 
@@ -35,6 +37,14 @@ class JoystickController(Controller):
             if abs(self.joint_cmd_value) > self.command_threshold:
                 self.node.setJointGoal(self.joint_cmd_type, self.joint_cmd_value)
             time.sleep(0.1)
+
+    # Add/Remove obstacle (collision object) to the scene
+    def on_triangle_press(self):
+        if self.collision_object == True:
+            self.node.execute_task(7)
+        else:
+            self.node.execute_task(6)
+        self.collision_object = not self.collision_object
 
 
     # Switch between controllers position follower and trajectory controllers
@@ -62,6 +72,8 @@ class JoystickController(Controller):
     def on_left_arrow_press(self):
         self.switch_controller_callback(ControllerType.TRAJECTORY)
         self.node.execute_task(5)
+
+    
 
     # Open/Close the gripper
     def on_square_press(self):

@@ -72,6 +72,13 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
+
+        <collision>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/waist_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </collision>
     </link>
 
     <joint name="shoulder_joint" type="revolute">
@@ -90,6 +97,12 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
+        <collision>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/shoulder_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </collision>
     </link>
 
     <joint name="forearm_joint" type="revolute">
@@ -108,6 +121,12 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
+        <collision>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/forearm_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </collision>
     </link>
 
     <joint name="wrist_joint" type="revolute">
@@ -126,6 +145,12 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
+        <collision>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/wrist_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </collision>
     </link>
 
     <joint name="palm_joint" type="revolute">
@@ -144,6 +169,12 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
+        <collision>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/palm_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </collision>
     </link>
 
     <!-- Extra joint for the interactive marker -->
@@ -257,6 +288,12 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
+        <collision>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/left_fingertip_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </collision>
     </link>
 
     <joint name="right_fingertip_joint" type="revolute">
@@ -276,6 +313,12 @@
         <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
         <material name="gray"/>
         </visual>
+        <collision>
+        <geometry>
+            <mesh filename="package://arthrobot_description/meshes/right_fingertip_link.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        </collision>
     </link>
 
 </robot>
