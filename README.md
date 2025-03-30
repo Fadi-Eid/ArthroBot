@@ -79,6 +79,73 @@ Component	Mapping in Repository
 |Arthrobot MoveIt (Motion Planning) |	arthrobot_ws/src/arthrobot_moveit (config files like arthrobot.srdf, kinematics.yaml, launch/moveit.launch.py)|
 |Arthrobot Task Server (Task Management) |	arthrobot_ws/src/arthrobot_task_server (arthrobot_task_server.cpp)|
 
+## Installation Guide
+
+1. Install ROS 2 Humble
+Follow the official guide to install ROS 2 Humble on Ubuntu [ROS 2 Official Install](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
+
+2. Install ROS 2 Developer Tools
+```bash
+sudo apt install ros-dev-tools
+```
+
+3. Install MoveIt 2 for ROS 2 Humble
+
+```bash
+sudo apt install ros-humble-moveit
+```
+
+4. Set Up Automatic ROS 2 Sourcing in New Terminals
+
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+```
+
+5. Install Cyclone DDS Middleware (Alternative to Fast DDS)
+```bash
+sudo apt install ros-$ROS_DISTRO-rmw-cyclonedds-cpp
+```
+
+6. Add Cyclone DDS to .bashrc
+```bash
+echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc
+```
+
+7. Install Dependencies for ArthroBot
+```bash
+# MoveIt Servo (for real-time motion control)
+ sudo apt install ros-humble-moveit-servo
+# Position Controllers (for controlling the robot's joints)
+sudo apt install ros-humble-position-controllers
+# Controller Manager (for managing robot controllers)
+sudo apt install ros-humble-controller-manager
+```
+8. Install Python Modules
+```bash
+# Install pip (if not already installed)
+sudo apt install python3-pip
+# Install the pyserial module
+pip install pyserial
+# Install the PS4 Controller module
+sudo pip install pyPS4Controller
+```
+
+9. Clone the ArthroBot GitHub Repository
+```bash
+git clone https://github.com/Fadi-Eid/ArthroBot.git
+```
+
+10. Grant USB Access Without Elevated Privileges
+```bash
+sudo usermod -a -G dialout $USER
+```
+
+11. Build the Workspace
+```bash
+cd ArthroBot/arthrobot_ws/
+colcon build
+```
+
 
 ### versions
 - V2: Basic version
