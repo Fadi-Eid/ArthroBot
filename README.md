@@ -5,7 +5,7 @@
 
 ## Mission
 ArthroBot sets out to make the world of robotics accessible with its compact, low-cost, and simple design.
-1. Fully 3D printed.
+1. Fully 3D printed [fabricreator-arm](https://cults3d.com/en/3d-model/gadget/brazo-robotico-arduino-diy-con-control-de-smartphone-2023) and [fabricreator-gripper](https://fabricreator.com/en/products/garra-print-in-place)
 2. Low-price motors (MG996R/MG995 and MG90S/SG90 servos).
 3. Low-price microcontroller (Any MCU that supports USB-UART bridge to communicate with a computer).
 4. ROS 2 and MoveIt 2 based (extensive community support and documentation).
