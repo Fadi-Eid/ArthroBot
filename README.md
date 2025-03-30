@@ -46,7 +46,7 @@ The project is organized into two primary directories:
   * Control Firmware: Written in C++ for embedded development, handling servo control via PWM and I2C communication.
   * Communication: The firmware communicates with the ROS 2 system via serial links.
 
-2.** ROS 2 Core Workspace Components**:
+2. **ROS 2 Core Workspace Components**:
   * `arthrobot_client`: Provides the user interface for teleoperation, sending commands like joystick inputs to control the robotic arm.
   * `arthrobot_controller`: Serves as the bridge between the Arduino-based firmware and the ROS 2 system, managing hardware control via C++.
   * `arthrobot_description`: Contains the digital twin of the robotic arm, enabling simulation and visualization via URDF and RViz.
@@ -54,7 +54,7 @@ The project is organized into two primary directories:
   * `arthrobot_moveit`: Configures MoveIt 2 for motion planning, enabling path planning and collision-free movement for the robotic arm.
   * `arthrobot_task_server`: Manages task execution, orchestrating higher-level commands for the robotic arm.
 
-3.** Inter-Component Communication**:
+3. **Inter-Component Communication**:
 Communication between ROS components is handled using ROS 2 topics, actions, and services.
 The arthrobot_controller node interacts with the Arduino firmware for real-time motion control using `pyserial`.
 
@@ -69,6 +69,7 @@ The arthrobot_controller node interacts with the Arduino firmware for real-time 
 
 ## Component Mapping
 Component	Mapping in Repository
+| | |
 |--------------------------------------|---------------------------------------------------------------------------|
 |Embedded Firmware (Arduino & Drivers) | Control/src/main.cpp, Control/platformio.ini, Control/include, Control/lib|
 |Arthrobot Client (Teleoperation) |	arthrobot_ws/src/arthrobot_client (arthrobot_client/arthrobot_control_joystick.py, arthrobot_servo_client.py)|
