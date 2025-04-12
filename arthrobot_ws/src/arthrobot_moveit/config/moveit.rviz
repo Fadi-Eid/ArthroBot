@@ -175,7 +175,7 @@ Visualization Manager:
         Interactive Marker Size: 0.07000000029802322
         Joint Violation Color: 255; 0; 255
         Planning Group: arthrobot_arm
-        Query Goal State: true
+        Query Goal State: false
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 1
@@ -468,25 +468,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.4259268045425415
+      Distance: 0.8551216721534729
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.17750060558319092
-        Y: 0.47241973876953125
-        Z: 0.1944461315870285
+        X: -0.17070937156677246
+        Y: -0.00741147855296731
+        Z: 0.17015407979488373
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.09039825201034546
+      Pitch: -0.02460174635052681
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.953582286834717
+      Yaw: 0.015398158691823483
     Saved: ~
 Window Geometry:
   Displays:

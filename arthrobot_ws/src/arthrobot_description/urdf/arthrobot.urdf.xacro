@@ -179,7 +179,7 @@
 
     <!-- Extra joint for the interactive marker -->
     <joint name="gripper_support_joint" type="fixed"> 
-        <origin xyz="0.0 0.1 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.005 0.1 0.0" rpy="0.0 0.0 0.0"/>
         <parent link="palm_link"/>
         <child link="gripper_support"/>
     </joint>

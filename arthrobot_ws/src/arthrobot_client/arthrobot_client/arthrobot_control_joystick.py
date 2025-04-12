@@ -60,7 +60,7 @@ class JoystickController(Controller):
         self.node.execute_task(0)
 
     # Default position
-    def on_down_arrow_press(self):
+    def on_left_arrow_press(self):
         self.switch_controller_callback(ControllerType.TRAJECTORY)
         self.node.execute_task(4)
 
@@ -69,7 +69,7 @@ class JoystickController(Controller):
         self.node.execute_task(3)
 
     
-    def on_left_arrow_press(self):
+    def on_down_arrow_press(self):
         self.switch_controller_callback(ControllerType.TRAJECTORY)
         self.node.execute_task(5)
 
@@ -122,11 +122,11 @@ class JoystickController(Controller):
         self.cartesian_cmd_value = 0.0
 
     # Rotate the waist
-    def on_R2_press(self, value):
+    def on_L2_press(self, value):
         self.switch_controller_callback(ControllerType.POSITION)
         self.joint_cmd_type = 1
         self.joint_cmd_value = 0.99
-    def on_L2_press(self, value):
+    def on_R2_press(self, value):
         self.switch_controller_callback(ControllerType.POSITION)
         self.joint_cmd_type = 1
         self.joint_cmd_value = -0.99

@@ -38,6 +38,22 @@ install(TARGETS
   RUNTIME DESTINATION bin
 )
 
+add_executable(arthrobot_waypoint_follower src/arthrobot_waypoint_follower.cpp)
+ament_target_dependencies(arthrobot_waypoint_follower   
+                                                        rclcpp
+                                                        moveit_ros_planning 
+                                                        moveit_core
+                                                        moveit_ros_planning_interface
+                                                        moveit)
+
+
+install(TARGETS arthrobot_waypoint_follower DESTINATION lib/${PROJECT_NAME})
+                                                      
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   set(ament_cmake_copyright_FOUND TRUE)
